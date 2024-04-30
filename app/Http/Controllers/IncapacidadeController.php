@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Exception;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 use Throwable;
 
 class IncapacidadeController extends Controller
@@ -20,10 +21,24 @@ class IncapacidadeController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+
     public function index()
     {
-        $incapacidades = Incapacidade::with('empleado', 'tipo_incapacidads')->get();
-        return view('Incapacidades.CRUD', compact('incapacidades'));
+        //Filtro para incapacidades que no se mostraran en este caso son las pagadas, ya que se mostraran en cruce
+        $ids_a_filtrar = [5]; 
+
+        // Consultar las incapacidades excluyendo aquellas que tengan los estados que deseas filtrar
+        $incapacidades = Incapacidade::with('empleado')
+            ->whereNotIn('idEstadoInc', $ids_a_filtrar)
+            ->get();
+
+        // Obtener otros datos si es necesario
+        $tiposIncapacidad = DB::table('tipo_incapacidads')->get();
+        $estado = DB::table('estados')->get();
+        
+        // Pasar los datos a la vista
+        return view('Incapacidades.CRUD', compact('incapacidades', 'tiposIncapacidad', 'estado'));
     }
 
 

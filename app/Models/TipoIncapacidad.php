@@ -9,7 +9,17 @@ class TipoIncapacidad extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'idTipoInc';
+
+    protected $fillable=[
+        'idTipoInc',
+        'NombreTipoInc'
+
+    ];
+
+
     public function Incapacidade(){
-        return $this->hasMany('App\Models\Incapacidade');
+        return $this->hasMany('App\Models\Incapacidade', 'idTipoInc');
     }
+    
 }

@@ -9,7 +9,15 @@ class Estado extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'idEstadoInc';
+
+    protected $fillable=[
+        'idEstadoInc',
+        'NombreEstado'
+
+    ];
+
     public function Incapacidade(){
-        return $this->hasMany('App\Models\Incapacidade');
+        return $this->hasMany('App\Models\Incapacidade', 'idEstadoInc');
     }
 }
