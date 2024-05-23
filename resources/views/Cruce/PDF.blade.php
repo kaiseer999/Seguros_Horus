@@ -17,53 +17,69 @@
             crossorigin="anonymous"
         />
 
-      
+        
        
         <style>
             body {
-                font-family: 'Poppins', sans-serif; /* Agrega el tipo de letra Poppins a todo el documento */
+                font-family: 'Arial', sans-serif; /* Agrega el tipo de letra Poppins a todo el documento */
                 
             }
             /* Estilos adicionales aquí */
         </style>
     </head>
     <body>
+       
+
         <div class="container">
-            
-            <div class="fecha">
-               <P>PRUENA</P>
-                <p>Medellín, {{ $fechaActual }}</p>
+
+            <h1>Pago de incapacidad</h1>
+            <div>
+                {{$fechaActual}}
             </div>
-            <div class="asunto">
-                <p>Asunto: Pago de Incapacidad</p>
+
+            <br>
+            <div>
+                <p>Asunto: Pago incapacidad</p>
             </div>
-            <div class="informacion">
-                <p>ADMINISTRACION Y APORTES S.A.S NIT 901574755-2 hace pago de la incapacidad derivada de un accidente laboral del señor JUAN DIEGO LOPEZ MUÑETON con CC 1037263380, liquidada y expedida por ARL COLMENA</p>
-                <p>Fecha:</p>
+            <div>
+                <p>NOM EMPRESA con NIT hace pago de la incapacidad derivada de un accidente laboral del señor NOM INC con NUMEMP, liquidada y expedida por EPSARL</p>
+                <p>Fecha de incapacidad</p>
                 <ul>
-                    <li>23/01/2024 AL 01/02/20234 (10 DIAS) $485.333</li>
+                    
+                        <p>Fecha inicial al Fecha Final (dias inc) valorEPS</p>
+                        <p>Total a pagar-----------valorCruce</p>
+
+                    
                 </ul>
-                <p>TOTAL, A PAGAR------------------------- $ $485.333</p>
             </div>
-            <div class="nota">
-                <p>Nota: SE REALIZA CRUCE DE LA INCAPACIDAD INICIAL CON UNAS AFILIACIONES QUE SOLICITO</p>
-            </div>
-
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-
-            <div class="firma">
-                <p>Cordialmente,</p>
-                <p>________________________________</p>
-                <p>Luisa Fernanda Osorio</p>
-                <p>Representante Legal</p>
-                <p>CC.</p>
+            <div>
+                <p><b>Nota</b> : Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo similique est cumque. Quisquam aperiam dolor vel sapiente totam error esse molestias, provident deleniti, enim facere at porro mollitia inventore nostrum?
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat molestias voluptatum exercitationem earum rem, vitae dolor quidem at. Harum officiis repellat dignissimos tenetur! Ab, esse. Odit eius nostrum cupiditate fugiat.
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium assumenda, voluptatum est quibusdam minus nihil fugit delectus! Alias tempora, rerum ullam suscipit aspernatur eligendi deserunt. Nulla maxime corrupti perferendis rerum?
+                </p>
             </div>
         </div>
+
+            <div class="container">
+                <div class="col">
+                    <div class="row-md-6">
+                        <p>______________________</p>
+                        <p>Luisa Fernanda Osorio</p>
+                        <p>Representante Legal</p>
+                    </div>
+                    <div class="row-md-6">
+                        <p>______________________</p>
+                        <p>Nom empleado</p>
+                        <p>Empleado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+
     </body>
     
     

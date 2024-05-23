@@ -9,7 +9,18 @@ class Empleador extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'numeroEmpleador';
+
+
     public function Incapacidade(){
         return $this->hasMany('App\Models\Incapacidade');
     }
+
+
+    
+
+    protected $fillable=[
+        'numeroEmpleador',
+        'nombreEmpleador',
+    ];
 }

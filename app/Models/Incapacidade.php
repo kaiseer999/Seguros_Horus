@@ -9,15 +9,33 @@ class Incapacidade extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'idIncapacidades';
+
+    protected $fillable=[
+        'idIncapacidades',
+        'FechaInicioInc',
+        'FechaFinInc',
+        'diasInc',
+        'numeroEmpleado',
+        'numeroEmpleador',
+        'RazonSocial',
+        'EPS_ARL',
+        'numeroRadicado',
+        'idTipoInc',
+        'Historia_MedicaInc',
+        'Soporte_Incapacidad'
+    ];
     
 
-
+    public function cruces(){
+        return $this->hasMany('App\Models\Cruce', 'idIncapacidades');
+    }
     public function empleado(){
         return $this->belongsTo('App\Models\Empleado', 'numeroEmpleado');
     }
 
     public function empleadors(){
-        return $this->belongsTo('App\Models\Empleador');
+        return $this->belongsTo('App\Models\Empleador', 'numeroEmpleador');
     }
 
     public function tipoIncapacidad(){

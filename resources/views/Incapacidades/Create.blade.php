@@ -1,12 +1,19 @@
+@role('admin')
 @extends('layouts.app')
 
 @section('content')
+    <h1>Nueva Incapacidad</h1>
+ 
+    <div class="alert alert-warning" role="alert">
+        ¡No olvides adjuntar la historia médica y la incapacidad del empleado! No te preocupes, aceptamos todos los formatos de archivo. 🩺💼
+    </div>
+    
 
-<h1>Nueva Incapacidad</h1>
+<hr>
 <div class="row">
-    <div class="card w-75">
+    <div class="col-lg-9 mb-4">
         <div class="card-body">
-            <form action="{{url('/incapacidades')}}" id="FrmEmpleado" name="FrmEmpleado" method="POST" enctype="multipart/form-data">
+            <form action="{{url('/incapacidades')}}" id="FrmIncapacidad" name="FrmIncapacidad" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3 row">
                     <div class="col">
@@ -112,7 +119,7 @@
                 <div class="form-floating">
                     <textarea class="form-control" placeholder="Agrega una observacion" id="floatingTextarea2" style="height: 100px" name="Observaciones"></textarea>
                     <label for="floatingTextarea2">Observaciones</label>
-                  </div>
+                </div>
             
                 <br>
 
@@ -122,30 +129,71 @@
             </form>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-lg-3 mb-4">
+
+        
         <div class="card">
-            <div class="card-header bg-warning text-dark">
-                ¿No encuentras al empleado o empleador?
+            <div class="card-header bg-warning text-dark text-center">
+                ¿No encuentras al empleador o empleado?
             </div>
             
             
             <div class="card-body">
                 <h5 class="card-title"></h5>
-                <p class="card-text">¡No te preocupes! ¡Crea uno!</p>
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Crear empleado
-                  </button>
-                  
-                  <!-- Modal Form -->
-                  <div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <p class="card-text text-center">¡No te preocupes! ¡Crea uno!</p>
+
+                <div class="row">
+                    <!--button  empleado-->
+
+                    <div class="col-md-12 text-center">
+                        <button type="button" class="btn btn-warning btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#exampleModalEmpleado">
+                            Crear empleado
+                        </button>
+                    </div>
+                    <!--button  empleador-->
+
+                    <div class="col-md-12 text-center">
+                        <button type="button" class="btn btn-warning btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#exampleModalEmpleador">
+                            Crear empleador
+                        </button>
+                    </div>
+                </div>
+
+                <!--Modal form empleador-->
+                <div class="modal fade modal-lg" id="exampleModalEmpleador" tabindex="-1" aria-labelledby="eexampleModalEmpleadorLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="exampleModalLabel">Crear empleado</h1>
+                          <h1 class="modal-title fs-5" id="exampleModalEmpleadorLabel">Nuevo empleador</h1>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                          <form action="{{url('/empleados')}}" id="FrmEmpleado" method="POST" >
+                          <form>
+                            <div class="mb-3">
+                                <label for="nombreEmpleador" class="form-label">Nombre del empleador</label>
+                                <input type="text" class="form-control" id="nombreEmpleador" name="nombreEmpleador"  required>
+                              </div>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-success">Save changes</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                
+                  
+                  <!-- Modal Form Empleado-->
+                  <div class="modal fade modal-lg" id="exampleModalEmpleado" tabindex="-1" aria-labelledby="exampleModalEmpleadoLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalEmpleadoLabel">Nuevo empleado</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <form action="{{url('/empleados')}}" id="FrmEmpleados" method="POST" >
                             @csrf
                               <div class="mb-3">
                                 <label for="tipoDocumentoempleado" class="form-label">Tipo documento</label>
@@ -174,13 +222,23 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                          <button type="button" class="btn btn-success" onclick="submitForm('FrmEmpleado')">Crear</button>                          </div>
+                          <button type="button" class="btn btn-success" onclick="submitForm('FrmEmpleados')">Crear</button>                          </div>
                       </div>
+                      <script>
+                        function submitForm(formId){
+                            document.getElementById(formId).submit();
+                          }
+                      </script>
                     </div>
-                  </div>            </div>
+                  </div>  
+                  
+                 
+                </div>
             
         </div>
     </div>
+    
+    
     
 
 
@@ -198,6 +256,12 @@
 
 @section('js')
 <script>
+
+       
+
+
+
+
             @if(Session::has('success'))
             // Muestra una alerta de SweetAlert2
             Swal.fire({
@@ -225,7 +289,7 @@
             $('#EmpleadorSelect').select2();
         });
 
-        document.getElementById('FrmEmpleado').addEventListener('submit', function(event) {
+        document.getElementById('FrmIncapacidad').addEventListener('submit', function(event) {
             calcularDias();
         
             
@@ -250,5 +314,7 @@
             // Muestra el resultado en el campo de texto
             document.getElementById('diasInc').value = dias;
         }
+
 </script>
 @endsection
+@endrole

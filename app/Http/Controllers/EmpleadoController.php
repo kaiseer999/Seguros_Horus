@@ -39,6 +39,11 @@ class EmpleadoController extends Controller
             return view('error_page', compact('alert'));
         }
     }
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     
 
 

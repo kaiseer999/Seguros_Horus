@@ -25,6 +25,8 @@ return new class extends Migration
 
             $table->float("saldoCruce")->nullable(); 
 
+            $table->json('PagoEPS')->nullable();  
+
             $table->string("Observaciones");
             
             $table->timestamps();

@@ -19,12 +19,12 @@ Auth::routes();
 
 Route::get('/cruces/pdf', [CruceController::class, 'pdf'])->name('cruces.pdf');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth']);
 
-Route::resource('/empleados', EmpleadoController::class);
-Route::resource('/empleadores', EmpleadorController::class);
-Route::resource('/incapacidades', IncapacidadeController::class);
-Route::resource('/cruces', CruceController::class);
+Route::resource('/empleados', EmpleadoController::class)->middleware(['auth']);
+Route::resource('/empleadores', EmpleadorController::class)->middleware(['auth']);
+Route::resource('/incapacidades', IncapacidadeController::class)->middleware(['auth']);
+Route::resource('/cruces', CruceController::class)->middleware(['auth']);
 
 
 

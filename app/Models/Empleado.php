@@ -13,6 +13,10 @@ class Empleado extends Model
         return $this->hasMany('App\Models\Incapacidade');
     }
 
+    public function Cruce(){
+        return $this->hasMany('App\Models\Cruce');
+    }
+
 
     protected $primaryKey = 'numeroEmpleado';
 

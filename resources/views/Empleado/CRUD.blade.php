@@ -2,6 +2,10 @@
 
 @section('content')
 
+@php
+$user = auth()->user();
+@endphp
+
 
 
 <h1>LISTA DE EMPLEADOS</h1>
@@ -15,6 +19,8 @@
             <div class="table-responsive" style="width: 100%; height: 100%;">
                 <table class="table-striped table align-middle table-bordered" id="empleados">
                     <!--Este modal es el formulario de creacion-->
+                    
+                    @role('admin')
 
                     <!-- Button, para abrir el modal-->
                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -69,7 +75,7 @@
                       }
 
                     </script>
-
+                    @endrole
 
 
                     <thead>
@@ -79,7 +85,9 @@
                             <th>Numero de documento</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
+                            @role('admin')
                             <th>Acciones</th>
+                            @endrole
                         </tr>
                     </thead>
             
@@ -97,6 +105,7 @@
                             <td>{{$empleado->idEmpleado}}</td>
                             <td>{{$empleado->nombreEmpleado}}</td>
                             <td>{{$empleado->apellidoEmpleado}}</td>
+                            @role('admin')
                             <td>
 
                               <div class="d-inline-flex">
@@ -141,14 +150,15 @@
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                                                        <button type="submit" class="btn btn-success">Guardar cambios</button>
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                
                                   <form id="deleteForm" action="{{ url('/empleados/'.$empleado->numeroEmpleado) }}" method="post">
                                       @csrf
                                       {{ method_field('DELETE') }}
@@ -161,14 +171,36 @@
                                     
 
                                   </form>
-                                  <button type="button" class="btn btn-link" title="Detalles">
-                                    <i class="fa-solid fa-circle-info fa-lg" title="Detalles"></i>
+                                  <!-- Botón que abre el modal -->
+                                  <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#detallesModal{{$empleado->idEmpleado}}" title="Detalles">
+                                      <i class="fas fa-info-circle fa-lg" title="Detalles"></i>
                                   </button>
+
+                                  <!-- Modal -->
+                                  <div class="modal fade" id="detallesModal{{$empleado->idEmpleado}}" tabindex="-1" aria-labelledby="detallesModalLabel{{$empleado->idEmpleado}}" aria-hidden="true">
+                                      <div class="modal-dialog modal-dialog-centered">
+                                          <div class="modal-content">
+                                              <div class="modal-header">
+                                                  <h5 class="modal-title" id="detallesModalLabel{{$empleado->idEmpleado}}">Detalles</h5>
+                                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                              </div>
+                                              <div class="modal-body">
+                                                <p>{{$empleado->tipoDocumentoempleado." : ". $empleado->idEmpleado}}</p>
+                                                <p>{{"Nombre completo : ".$empleado->nombreEmpleado." ".$empleado->apellidoEmpleado}}</p>
+                                              </div>
+                                              <div class="modal-footer">
+                                                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                                                  <!-- Puedes agregar más botones de acción si lo necesitas -->
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+
                                   
 
                               </div>       
                             </td>
-            
+                            @endrole
             
                         </tr>
                             
@@ -187,38 +219,30 @@
     <div class="col-md-3">
       
           <div class="card col-sm">
-            <div class="card-header">
-              Featured
+            <div class="card-header bg-warning text-dark">
+              Incapacidad
             </div>
             <div class="card-body">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <h5 class="card-title">¿Empleado incapacitado?</h5>
+              <p class="card-text">¡Ingresa su incapacidad aquí! No olvides los soportes de EPS y radicación.</p>
+              <a href="{{url('/incapacidades/create')}}" class="btn btn-warning">Crear aquí</a>
             </div>
           </div>
+      
           <br>
           <div class="card col-sm">
-            <div class="card-header">
-              Featured
+            <div class="card-header bg-warning text-dark">
+              Cruce
             </div>
             <div class="card-body">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <h5 class="card-title">¿La EPS o ARL ya pagó?</h5>
+              <p class="card-text">Crea un cruce lo antes posible, no juegues con el dinero de los demás.</p>
+              <a href="{{url('/cruces')}}" class="btn btn-warning">Crear aquí</a>
             </div>
           </div>
-      </div>
+          
 </div>
   
-
-
-
-
-
-
-
-
-
 
 @endsection
 

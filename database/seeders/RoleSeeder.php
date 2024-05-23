@@ -20,7 +20,9 @@ class RoleSeeder extends Seeder
     $rol2=Role::create(['name'=>'Seguros']);
     $rol3= Role::create(['name'=>'Afiliaciones']);
 
+    Permission::create(['name'=>'home'])->syncRoles([$rol1, $rol2]);
 
+    
         
     }
 }
