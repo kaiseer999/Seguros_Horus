@@ -71,7 +71,19 @@
                               <li><a class="dropdown-item" href="{{url('/incapacidades')}}">Ver Incapacidades</a></li>
                               <li><a class="dropdown-item" href="{{url('/cruces')}}">Ver Cruces</a></li>
                             </ul>
-                          </li>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <button class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                              Nomina
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-warning">
+                              <li><a class="dropdown-item" href="#">Ver Empleados</a></li>
+                              <li><a class="dropdown-item" href="#">Ver Empleadores</a></li>
+                              <li><a class="dropdown-item" href="#">Ver Incapacidades</a></li>
+                              <li><a class="dropdown-item" href="#">Ver Cruces</a></li>
+                            </ul>
+                        </li>
                   
                     </ul>
                     @endguest
