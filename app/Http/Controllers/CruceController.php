@@ -89,6 +89,12 @@ class CruceController extends Controller
                 $nomDocumento = time() . '_' . $documento->getClientOriginalName();
                 $nomPago = $documento->storeAs($ruta, $nomDocumento, 'public');
             }
+            
+            if ($request->hasFile('PagoCruce')) {
+                $documento = $request->file('PagoCruce');
+                $nomDocumento = time() . '_' . $documento->getClientOriginalName();
+                $nomPagocruce = $documento->storeAs($ruta, $nomDocumento, 'public');
+            }
 
             $cruce= new Cruce();
 
@@ -97,6 +103,7 @@ class CruceController extends Controller
             $cruce->valorCruce= $request->input('valorCruce');
             $cruce->saldoCruce = $request->input('saldoCruce');
             $cruce->PagoEPS=!empty($nomPago) ?json_encode($nomPago):null;
+            $cruce->PagoCruce=!empty($nomPagocruce) ?json_encode($nomPagocruce):null;
             $cruce->Observaciones= $request->input('Observaciones');
 
             $cruce->save();
@@ -163,8 +170,28 @@ class CruceController extends Controller
                 'valorCruce' => 'required|numeric',
                 'saldoCruce' => 'required|numeric',
                 'PagoEPS.*' => 'file|mimes:jpeg,png,jpg,gif,svg,pdf|max:10240',
+                'PagoCruce.*' => 'file|mimes:jpeg,png,jpg,gif,svg,pdf|max:10240',
                 'Observaciones' => 'string|max:256',
             ]);
+
+            if($cruce){
+
+                $cruce->update([
+                    'valorIncapacidad'=>request('valorIncapacidad'),
+                    'valorCruce'=>request('valorCruce'),
+                    'saldoCruce'=>request('saldoCruce'),
+                    'Observaciones'=>request('Observaciones')
+                ]);
+
+
+
+
+           
+
+
+
+
+
             
             $user_id = Auth::id();
             $ruta = $user_id;
@@ -184,11 +211,28 @@ class CruceController extends Controller
                 $cruce->PagoEPS = $pagoeps;
                 $cruce->save();
             }
+
+            if ($request->hasFile('PagoCruce')) {
+                $documento = $request->file('PagoCruce');
+                $nomdoc = time() . '_' . $documento->getClientOriginalName();
+                $pagocruce = $documento->storeAs($ruta, $nomdoc, 'public');
+            
+                // Eliminar archivo anterior si existe
+                $rutaArchivo = storage_path('app/public/' . $ruta . '/' . $cruce->PagoCruce);
+                if (file_exists($rutaArchivo)) {
+                    unlink($rutaArchivo);
+                }
+            
+                // Actualizar la información del archivo en el modelo
+                $cruce->PagoCruce = $pagocruce;
+                $cruce->save();
+            }
             
             Session::flash('success', '¡El cruce se actualizó correctamente!');
             
             return back();
             
+        }
 
         }catch(QueryException $e){
             if($e->errorInfo==1062){

@@ -23,6 +23,7 @@ class Cruce extends Model
         'valorCruce',
         'saldoCruce',
         'PagoEPS',
+        'PagoCruce',
         'Observaciones'
 
     ];

@@ -20,7 +20,7 @@ $user = auth()->user();
                 <table class="table-striped table align-middle table-bordered" id="empleados">
                     <!--Este modal es el formulario de creacion-->
                     
-                    @role('admin')
+                    @if($user->hasRole('seguros') || $user->hasRole('admin'))
 
                     <!-- Button, para abrir el modal-->
                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -75,7 +75,7 @@ $user = auth()->user();
                       }
 
                     </script>
-                    @endrole
+                    @endif
 
 
                     <thead>

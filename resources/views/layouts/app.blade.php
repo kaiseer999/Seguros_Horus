@@ -78,10 +78,12 @@
                               Nomina
                             </button>
                             <ul class="dropdown-menu dropdown-menu-warning">
-                              <li><a class="dropdown-item" href="#">Ver Empleados</a></li>
-                              <li><a class="dropdown-item" href="#">Ver Empleadores</a></li>
-                              <li><a class="dropdown-item" href="#">Ver Incapacidades</a></li>
-                              <li><a class="dropdown-item" href="#">Ver Cruces</a></li>
+                              <li><a class="dropdown-item" href="#">Ver Empleados Horus</a></li>
+                              <li><a class="dropdown-item" href="#">Ver Nomimas</a></li>
+                              <li><a class="dropdown-item" href="#">Ver Primas</a></li>
+                              <li><a class="dropdown-item" href="#">Ver Vacaciones</a></li>
+                              <li><a class="dropdown-item" href="#">Ver Cesantias</a></li>
+
                             </ul>
                         </li>
                   

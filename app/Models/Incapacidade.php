@@ -18,12 +18,13 @@ class Incapacidade extends Model
         'diasInc',
         'numeroEmpleado',
         'numeroEmpleador',
-        'RazonSocial',
+        'RazonSocialInc',
         'EPS_ARL',
         'numeroRadicado',
         'idTipoInc',
         'Historia_MedicaInc',
-        'Soporte_Incapacidad'
+        'Soporte_Incapacidad',
+        'Observaciones'
     ];
     
 

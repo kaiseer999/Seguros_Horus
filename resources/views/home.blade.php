@@ -8,17 +8,7 @@
     <div class="row justify-content-center h-100">
         <div class="col-md-12 my-auto">
             <div class="alert alert-light" role="alert">
-              @role('admin')
-              <p>eres admin</p>
-              @endrole
-              
-              @php
-              $user = auth()->user();
-             @endphp
-          
-              @if($user->hasRole('seguros') || $user->hasRole('afiliaciones'))
-                  <p>Bienvenidos Seguros y Afiliaciones.</p>
-              @endif
+             
           
                 <h4 class="font-weight-bold">{{ __('Bienvenido') }} {{ Auth::user()->name }}</h4> 
                 <br>

@@ -1,3 +1,7 @@
+@php
+$user = auth()->user();
+@endphp
+
 @extends('layouts.app')
 
 @section('content')
@@ -9,7 +13,8 @@
         <div class="card-body">
             <div class="table-responsive" style="width: 100%; height: 100%;">
                 <table class="table-striped table align-middle table-bordered" id="empleadores">
-                    @role('admin')
+                    @if($user->hasRole('seguros') || $user->hasRole('admin'))
+
 
                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#empleadorModalCrear">
                         Crear empleador
@@ -41,7 +46,7 @@
                         </div>
                     </div>
 
-                    @endrole
+                    @endif
                     <thead>
                         <tr>
                             <th>{{'#'}}</th>
@@ -52,10 +57,13 @@
                     <tbody>
                         @foreach ($empleadores as $empleador)
                         <tr>
+                            
                             <td>{{$empleador->numeroEmpleador}}</td>
                             <td>{{$empleador->nombreEmpleador}}</td>
                             <td class="align-middle text-center">
                                 <div class="d-inline-flex">
+
+                                    @role('admin')
                                     <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#empleadorModalEdit{{$empleador->numeroEmpleador}}">
                                         <i class="fa-solid fa-pen-to-square fa-lg" title="Editar"></i>
                                     </button>
@@ -86,6 +94,9 @@
                                         </div>
                                     </div>
 
+                                    
+
+                                    
                                     <form id="deleteForm" action="{{ url('/empleadores/'.$empleador->numeroEmpleador) }}" method="post">
                                         @csrf
                                         {{ method_field('DELETE') }}
@@ -94,6 +105,7 @@
                                         </button>
                                     </form>
 
+                                    @endrole
                                     <button type="button" class="btn btn-link" title="Detalles" data-bs-toggle="modal" data-bs-target="#empleadorModalDetalles{{$empleador->numeroEmpleador}}">
                                         <i class="fa-solid fa-circle-info fa-lg" title="Detalles"></i>
                                     </button>  

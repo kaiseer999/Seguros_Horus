@@ -1,0 +1,38 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('info_empleado_admin_nominas', function (Blueprint $table) {
+            $table->id('idEmpleadoAdmNom');
+            $table->date('fechaIngresoEmpleadoNom');
+
+            $table->unsignedBigInteger('idCargoNomina')->nullable();
+            $table->foreign('idCargoNomina')->references('idCargoNomina')->on('cargo_nominas')
+            ->onDelete('set null')->onUpdate('cascade');
+
+
+            $table->unsignedBigInteger('idEstadoNomina')->nullable();
+            $table->foreign('idEstadoNomina')->references('idEstadoNomina')->on('estados_nominas')
+            ->onDelete('set null')->onUpdate('cascade');
+            
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('info_empleado_admin_nominas');
+    }
+};

@@ -1,13 +1,12 @@
-@extends('layouts.app')
-
-@section('content')
 @php
 $user = auth()->user();
 @endphp
-@if($user->hasRole('seguros') || $user->hasRole('afiliaciones'))
 
-    <p>Bienvenidos Seguros y Afiliaciones.</p>
-@endif
+@extends('layouts.app')
+
+@section('content')
+
+
 
 <h1>Incapacidades</h1>
 
@@ -16,6 +15,7 @@ $user = auth()->user();
         <div class="card-body">
             <div class="table-responsive" style="width: 100%; height: 100%;">
                 <table class="table-striped table align-middle table-bordered" id="incapacidades">
+                    
                     @if($user->hasRole('seguros') || $user->hasRole('admin'))
                     <a href="{{ url('incapacidades/create') }}" class="btn btn-warning">Crear incapacidad</a>
                     @endif
@@ -40,9 +40,13 @@ $user = auth()->user();
                             <td>{{$inc->diasInc}}</td>
                             <td>{{ $inc->estado->NombreEstado }}</td>
 
+
+                           
+
                             <td class="align-middle ">
                                 <div class="d-inline-flex">
-                                    @role('admin')
+                                    @if($user->hasRole('seguros') || $user->hasRole('admin'))
+
                                     <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#modalEditar{{$inc->idIncapacidades}}">
                                         <i class="fa-solid fa-pen-to-square fa-lg" title="Editar"></i>
                                     </button>
@@ -55,52 +59,52 @@ $user = auth()->user();
                                                 </div>
                                                 <div class="modal-body">
                                                     
-                                                <form action="{{ route('incapacidades.update', $inc->idIncapacidades) }}" method="post">
+                                                <form action="{{ route('incapacidades.update', $inc->idIncapacidades) }}" method="post" enctype="multipart/form-data">
                                                     @csrf
                                                     @method('PUT')
 
                                                     <div class="mb-3 row">
                                                         <div class="col">
                                                             <div class="form-floating">
-                                                                <input type="date" class="form-control" id="FechaInicioInc"  value="{{$inc->FechaInicioInc}}" name="FechaInicioInc" placeholder="Fecha de inicio de la incapacidad" required>
+                                                                <input type="date" class="form-control" id="FechaInicioInc"  value="{{$inc->FechaInicioInc}}" name="FechaInicioInc" placeholder="Fecha de inicio de la incapacidad" >
                                                                 <label for="FechaInicioInc">Fecha de inicio de la incapacidad</label>
                                                             </div>
                                                         </div>
                                                         <div class="col">
                                                             <div class="form-floating">
-                                                                <input type="date" class="form-control" id="FechaFinInc" name="FechaFinInc" value="{{$inc->FechaFinInc}}" placeholder="Fecha de fin de la incapacidad" required>
+                                                                <input type="date" class="form-control" id="FechaFinInc" name="FechaFinInc" value="{{$inc->FechaFinInc}}" placeholder="Fecha de fin de la incapacidad" >
                                                                 <label for="FechaFinInc">Fecha de fin de la incapacidad</label>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div>
                                                         <div class="form-floating">
-                                                            <input type="text" class="form-control" id="diasInc" name="diasInc" placeholder="Dias de incapacidad" required >
+                                                            <input type="text" class="form-control" id="diasInc" name="diasInc" value="{{$inc->diasInc}}" placeholder="Dias de incapacidad"  >
                                                             <label for="DiasInc">Dias de incapacidad</label>
                                                         </div>
                                                     </div>
                                                     <br>
                                                     <div class="mb-3">
                                                         <label for="numeroEmpleado" class="form-label">Empleado incapacitado</label>
-                                                        <input type="text" class="form-control" id="numeroEmpleado" name="numeroEmpleado" value="{{ $inc->empleado->nombreEmpleado . ' ' . $inc->empleado->apellidoEmpleado }}" readonly required>
+                                                        <input type="text" class="form-control" id="numeroEmpleado" name="numeroEmpleado" value="{{ $inc->empleado->nombreEmpleado . ' ' . $inc->empleado->apellidoEmpleado }}" readonly >
                                                         <input type="hidden" name="numeroEmpleado" value="{{ $inc->numeroEmpleado }}">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="numeroEmpleador" class="form-label">Empleador</label>
-                                                        <input type="text" class="form-control" id="numeroEmpleador" name="numeroEmpleador" value="{{ $inc->empleadors->nombreEmpleador }}" readonly required>
+                                                        <input type="text" class="form-control" id="numeroEmpleador" name="numeroEmpleador" value="{{ $inc->empleadors->nombreEmpleador }}" readonly >
                                                         <input type="hidden" name="numeroEmpleador" value="{{ $inc->numeroEmpleador }}">
                                                     </div>
                                                     <br>
                                                     <div>
                                                         <div class="form-floating">
-                                                            <input type="text" class="form-control" id="RazonS" name="RazonSocialInc" value="{{$inc->RazonSocialInc}}" placeholder="Razon social" required>
-                                                            <label for="RazonS">Razon social</label>
+                                                            <input type="text" class="form-control" id="RazonSocialInc" name="RazonSocialInc" value="{{$inc->RazonSocialInc}}" placeholder="RazonSocialInc" >
+                                                            <label for="RazonSocialInc">Razon social</label>
                                                         </div>
                                                     </div>
                                                     <br>
                                                     <div>
                                                         <div class="form-floating">
-                                                            <input type="text" class="form-control" id="EPS_ARL" value="{{$inc->EPS_ARL}}" name="EPS_ARL" placeholder="EPS_ARL" required>
+                                                            <input type="text" class="form-control" id="EPS_ARL" value="{{$inc->EPS_ARL}}" name="EPS_ARL" placeholder="EPS_ARL" >
                                                             <label for="EPS_ARL">EPS/ARL</label>
                                                         </div>
                                                     </div> 
@@ -118,8 +122,8 @@ $user = auth()->user();
                                                     <br>
                                                     <div>
                                                         <div class="form-floating">
-                                                            <input type="text" class="form-control" id="Radicado" name="numeroRadicado" value="{{$inc->numeroRadicado}}" placeholder="Numero de radicado" >
-                                                            <label for="Radicado">Numero de radicado</label>
+                                                            <input type="text" class="form-control" id="numeroRadicado" name="numeroRadicado" value="{{$inc->numeroRadicado}}" placeholder="Numero de radicado" >
+                                                            <label for="numeroRadicado">Numero de radicado</label>
                                                         </div>
                                                     </div> 
 
@@ -127,7 +131,7 @@ $user = auth()->user();
 
                                                     <div class="mb-3">
                                                         <label for="EstadoSelect" class="form-label">Estado de la incapacidad</label>
-                                                        <select class="form-select" id="EstadoSelect" name="idEstadoInc" required>
+                                                        <select class="form-select" id="EstadoSelect" name="idEstadoInc" >
                                                             <option value="" disabled>Selecciona...</option>
                                                             @foreach($estado as $estados)
                                                             <option value="{{ $estados->idEstadoInc }}">{{$estados->NombreEstado }}</option>
@@ -140,17 +144,22 @@ $user = auth()->user();
                                                         necesario para la actualización. La previsualización no está disponible en esta vista.</label>
                                                     <div class="mb-3">
                                                         <label for="Historia_MedicaInc">Historia medica</label>
-                                                        <input type="file" class="form-control" id="Historia_MedicaInc" placeholder="Historia medica" name="Historia_MedicaInc" required>
+                                                        <input type="file" class="form-control" id="Historia_MedicaInc" placeholder="Historia medica" name="Historia_MedicaInc" >
                                                     </div>
                                                     <br>
                                                     <div class="mb-3">
                                                         <label for="Soporte_Incapacidad">Soporte de incapacidad</label>
-                                                        <input type="file" class="form-control" id="Soporte_Incapacidad" placeholder="Soporte de incapacidad" name="Soporte_Incapacidad" required>
+                                                        <input type="file" class="form-control" id="Soporte_Incapacidad" placeholder="Soporte de incapacidad" name="Soporte_Incapacidad" >
                                                     </div>
 
                                                     <div class="form-floating">
-                                                        <textarea class="form-control" placeholder="Agrega una observacion" id="floatingTextarea2" style="height: 100px" name="Observaciones">{{ old('Observaciones', $inc->Observaciones) }}</textarea>
-                                                        <label for="floatingTextarea2">Observaciones</label>
+                                                        <textarea class="form-control" placeholder="Agrega una observacion" id="Observaciones" style="height: 100px" name="Observaciones">{{ old('Observaciones', $inc->Observaciones) }}</textarea>
+                                                        <label for="Observaciones">Observaciones</label>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                                                        <button type="submit" class="btn btn-success">Guardar cambios</button>
                                                     </div>
                                                     
 
@@ -158,10 +167,7 @@ $user = auth()->user();
                                                     
                                                     
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                                    <button type="button" class="btn btn-primary">Guardar cambios</button>
-                                                </div>
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -175,7 +181,7 @@ $user = auth()->user();
                                     </button>
                                     </form>
 
-                                    @endrole
+                                    @endif
 
                                     <button type="button" class="btn btn-link" title="Detalles" data-bs-toggle="modal" data-bs-target="#modalDetalles{{$inc->idIncapacidades}}">
                                         <i class="fa-solid fa-circle-info fa-lg" title="Detalles"></i>
@@ -208,8 +214,8 @@ $user = auth()->user();
 
                                                         @endphp
 
-                                                        <a href="{{ asset($ruta) }}" target="_blank">{{ $nombrehismed }}</a>
-                                                        </div>
+                                                        <a href="{{ asset($ruta) }}" target="_blank">{{ "Historia medica de ".$inc->empleado->nombreEmpleado }}</a>
+                                                    </div>
                                                     <div style="text-align: left;">
                                                         <b>Soporte de incapacidad:</b>
                                                         @php
@@ -217,7 +223,7 @@ $user = auth()->user();
                                                             $nombreArchivo = trim($inc->Soporte_Incapacidad, '"');
                                                             $filePath = 'storage/' . $nombreArchivo;
                                                         @endphp
-                                                        <a href="{{ asset($filePath) }}" target="_blank">{{ $nombreArchivo }}</a>
+                                                        <a href="{{ asset($filePath) }}" target="_blank">{{ "Soporte de incapacidad de ".$inc->empleado->nombreEmpleado }}</a>
                                                         <br>
                                                     </div>
                                                     <div style="text-align: left;"><b>Observaciones :</b> {{$inc->Observaciones }}</div>
@@ -298,6 +304,7 @@ $user = auth()->user();
 
       document.getElementById('FechaInicioInc').addEventListener('change', calcularDias);
       document.getElementById('FechaFinInc').addEventListener('change', calcularDias);
+
       function calcularDias() {
         var FechaInicioInc = new Date(document.getElementById('FechaInicioInc').value);
         var FechaFinInc = new Date(document.getElementById('FechaFinInc').value);

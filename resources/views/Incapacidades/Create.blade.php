@@ -1,4 +1,15 @@
-@role('admin')
+@php
+$user = auth()->user();
+@endphp
+@if($user->hasRole('seguros') || $user->hasRole('admin'))
+
+    
+
+
+
+
+
+
 @extends('layouts.app')
 
 @section('content')
@@ -317,4 +328,5 @@
 
 </script>
 @endsection
-@endrole
+
+@endif

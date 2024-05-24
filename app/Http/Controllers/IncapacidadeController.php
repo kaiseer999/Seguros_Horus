@@ -192,6 +192,7 @@ class IncapacidadeController extends Controller
      */
     public function update(UpdateIncapacidadeRequest $request, $idIncapacidades)
     {
+        
         try{
             //Busco la incapacidad a editar
             $incapacidad = Incapacidade::find($idIncapacidades);
@@ -293,6 +294,8 @@ class IncapacidadeController extends Controller
             Session::flash('error', '¡Ups! Algo salió mal al actualizar la incapacidad: ' . $ex->getMessage());
             return back(); 
         }
+        
+     //return $request->all();
         
     }
     

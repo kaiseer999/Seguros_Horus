@@ -1,3 +1,8 @@
+@php
+$user = auth()->user();
+@endphp
+
+
 @extends('layouts.app')
 
 @section('content')
@@ -11,8 +16,12 @@
             <div class="card-body">
                 <div class="table-responsive" style="width: 100%; height: 100%;">
                     <table class="table-striped table align-middle table-bordered" id="cruces">
+
+                        @if($user->hasRole('seguros') || $user->hasRole('admin'))
+
                         <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalPagar">Pagar incapacidad</button>
 
+                       
                         <div class="modal fade" id="modalPagar" tabindex="-1" aria-labelledby="modalPagarLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                               <div class="modal-content">
@@ -49,6 +58,10 @@
                                         <input type="file" class="form-control" name="PagoEPS" id="PagoEPS" aria-describedby="PagoEPS">
                                     </div>
                                     <div class="mb-3">
+                                        <label for="PagoCruce" class="form-label">Pago de la Incapacidad</label>
+                                        <input type="file" class="form-control" name="PagoCruce" id="PagoCruce" aria-describedby="PagoCruce">
+                                    </div>
+                                    <div class="mb-3">
                                         <label for="Observaciones" class="form-label">Observaciones</label>
                                         <textarea class="form-control" name="Observaciones" id="Observaciones" rows="3"></textarea>
                                     </div>
@@ -82,7 +95,7 @@
                             }
                         </script>
                         
-
+                        @endif
                         <thead>
                             <th>Nombre del empleado</th>
                             <th>Nombre del empleador</th>
@@ -114,11 +127,14 @@
                                 <td>{{ number_format($cruce->valorIncapacidad, 0, '.', ',') }}</td>
                                 <td>{{ number_format($cruce->valorCruce, 0, '.', ',') }}</td>
                                 <td>{{ number_format(floor($cruce->saldoCruce / 100), 0, '.', ',') }}</td>
-                                <td>
+                               
 
+                                <td>
+                                    
                                     <div class="d-inline-flex">
-      
-      
+                                        
+                                    @role('admin')
+
                                         <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#exampleModal{{$cruce->idCruce}}">
                                           <i class="fa-solid fa-pen-to-square fa-lg" title="Editar"></i>
                                         </button>
@@ -132,10 +148,11 @@
                                                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                   </div>
                                                   <div class="modal-body">
+                                                    <p>Usted ha elegido la incapacidad de  {{ $cruce->incapacidade->empleado->nombreEmpleado . " " . $cruce->incapacidade->empleado->apellidoEmpleado }}</p>
+
                                                     <form action="{{ route('cruces.update', $cruce->idCruce) }}" method="post">
                                                         @csrf
                                                         @method('PUT')
-                                                        <p>Usted ha elegido la incapacidad de  {{ $cruce->incapacidade->empleado->nombreEmpleado . " " . $cruce->incapacidade->empleado->apellidoEmpleado }}</p>
 
                                                         
 
@@ -149,13 +166,17 @@
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="saldoCruce" class="form-label">Saldo cruce</label>
-                                                            <input type="text" class="form-control" name="saldoCruce" value="{{ number_format(floor($cruce->saldoCruce / 100), 0, '.', ',') }}" id="saldoCruce" aria-describedby="saldoCruce">
+                                                            <input type="text" class="form-control" name="saldoCruce" value="{{ $cruce->saldoCruce }}" id="saldoCruce" aria-describedby="saldoCruce">
                                                         </div>
                                                         <label for="idEmpleado" class="form-label"><b>¡Importante!</b> Si deseas modificar o editar algún archivo, ¡adelante! Sube archivos solo si es 
                                                             necesario para la actualización. La previsualización no está disponible en esta vista.</label>
                                                         <div class="mb-3">
                                                             <label for="PagoEPS" class="form-label">Pago de la EPS</label>
                                                             <input type="file" class="form-control" name="PagoEPS" id="PagoEPS" aria-describedby="PagoEPS">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="PagoCruce" class="form-label">Pago de la incapacidad</label>
+                                                            <input type="file" class="form-control" name="PagoCruce" id="PagoCruce" aria-describedby="PagoCruce">
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="Observaciones" class="form-label">Observaciones</label>
@@ -165,7 +186,11 @@
 
 
 
-
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                                                            <button type="submit" class="btn btn-success">Guardar cambios</button>
+                                                        </div>
+                                                        
 
                                                     </form>
                                                       
@@ -174,6 +199,9 @@
                                           </div>
                                       </div>
                                       
+
+                                      
+
                                         <form id="deleteForm" action="{{ url('/cruces/'.$cruce->idCruce) }}" method="post">
                                             @csrf
                                             {{ method_field('DELETE') }}
@@ -182,7 +210,7 @@
                                             </button>
                                         </form>
                                       
-      
+                                        @endrole
                                           
       
                                         <!-- Botón que abre el modal -->
@@ -199,12 +227,42 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <p>{{$cruce->incapacidade->empleado->nombreEmpleado . " " . $cruce->incapacidade->empleado->apellidoEmpleado}}</p>
-                                                        <p>{{ $cruce->incapacidade->empleadors->nombreEmpleador}}</p>
-                                                        <p>{{ number_format($cruce->valorIncapacidad, 0, '.', ',') }}</p>
-                                                        <p>{{ number_format($cruce->valorCruce, 0, '.', ',') }}</p>
-                                                        <p>{{ number_format(floor($cruce->saldoCruce / 100), 0, '.', ',') }}</p>
-                                                        <p></p>
+                                                        <p>Nombre del empleado: {{ $cruce->incapacidade->empleado->nombreEmpleado }} {{ $cruce->incapacidade->empleado->apellidoEmpleado }}</p>
+                                                        <p>Nombre del empleador: {{ $cruce->incapacidade->empleadors->nombreEmpleador }}</p>
+                                                        <p>Valor de la incapacidad: {{ number_format($cruce->valorIncapacidad, 0, '.', ',') }}</p>
+                                                        <p>Valor del cruce: {{ number_format($cruce->valorCruce, 0, '.', ',') }}</p>
+                                                        <p>Saldo resultante del cruce: {{ number_format(floor($cruce->saldoCruce / 100), 0, '.', ',') }}</p>
+                                                        <p>
+                                                            Pago EPS:
+                                                            @php
+                                                                $nompagoeps = trim($cruce->PagoEPS, '"');
+                                                            @endphp
+                                                            @if ($nompagoeps)
+                                                                @php
+                                                                    $ruta = 'storage/' . $nompagoeps;
+                                                                @endphp
+                                                                <a href="{{ asset($ruta) }}" target="_blank">{{ "Pago de la incapacidad en la EPS de " . $cruce->incapacidade->empleado->nombreEmpleado }}</a>
+                                                            @else
+                                                                <span>No hay pago de EPS disponible</span>
+                                                            @endif
+                                                        </p>
+
+                                                        <p>
+                                                            Pago Cruce:
+                                                            @php
+                                                                $nompagocruce = trim($cruce->PagoCruce, '"');
+                                                            @endphp
+                                                            @if ($nompagocruce)
+                                                                @php
+                                                                    $ruta = 'storage/' . $nompagocruce;
+                                                                @endphp
+                                                                <a href="{{ asset($ruta) }}" target="_blank">{{ "Pago del cruce de " . $cruce->incapacidade->empleado->nombreEmpleado }}</a>
+                                                            @else
+                                                                <span>No hay pago de cruce disponible</span>
+                                                            @endif
+                                                        </p>
+                                                        <p>Observacion: {{ $cruce->Observaciones }}</p>
+
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
