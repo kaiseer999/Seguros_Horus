@@ -97,11 +97,11 @@ $user = auth()->user();
                                     
 
                                     
-                                    <form id="deleteForm" action="{{ url('/empleadores/'.$empleador->numeroEmpleador) }}" method="post">
+                                    <form id="deleteForm{{ $empleador->numeroEmpleador }}" action="{{ url('/empleadores/'.$empleador->numeroEmpleador) }}" method="post">
                                         @csrf
                                         {{ method_field('DELETE') }}
-                                        <button type="button" class="btn btn-link" onclick="confirmDelete()" >
-                                            <i class="fa-solid fa-trash fa-lg" ></i>
+                                        <button type="button" class="btn btn-link" onclick="confirmDelete({{ $empleador->numeroEmpleador }})" title="Borrar">
+                                            <i class="fa-solid fa-trash fa-lg"></i>
                                         </button>
                                     </form>
 
@@ -162,7 +162,7 @@ $user = auth()->user();
 @endif
 
 
-function confirmDelete() {
+function confirmDelete(numeroEmpleador) {
     Swal.fire({
         title: '¿Estás seguro?',
         text: '¡No podrás revertir esto!',
@@ -174,10 +174,11 @@ function confirmDelete() {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            document.getElementById('deleteForm').submit();
+            document.getElementById('deleteForm' + numeroEmpleador).submit();
         }
     });
-  }
+}
+
 
     $(document).ready(function() {
         $('#empleadores').DataTable({

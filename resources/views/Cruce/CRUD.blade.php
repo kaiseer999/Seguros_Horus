@@ -202,13 +202,13 @@ $user = auth()->user();
 
                                       
 
-                                        <form id="deleteForm" action="{{ url('/cruces/'.$cruce->idCruce) }}" method="post">
-                                            @csrf
-                                            {{ method_field('DELETE') }}
-                                            <button type="button" class="btn btn-link" onclick="confirmDelete()" title="Borrar">
-                                                <i class="fa-solid fa-trash fa-lg" title="Borrar"></i>
-                                            </button>
-                                        </form>
+                                      <form id="deleteForm{{ $cruce->idCruce }}" action="{{ url('/cruces/'.$cruce->idCruce) }}" method="post">
+                                        @csrf
+                                        {{ method_field('DELETE') }}
+                                        <button type="button" class="btn btn-link" onclick="confirmDelete({{ $cruce->idCruce }})" title="Borrar">
+                                            <i class="fa-solid fa-trash fa-lg" title="Borrar"></i>
+                                        </button>
+                                    </form>
                                       
                                         @endrole
                                           
@@ -331,7 +331,7 @@ $user = auth()->user();
             });
       @endif
 
-      function confirmDelete() {
+      function confirmDelete(idCruce) {
         Swal.fire({
             title: '¿Estás seguro?',
             text: '¡No podrás revertir esto!',
@@ -343,10 +343,11 @@ $user = auth()->user();
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                document.getElementById('deleteForm').submit();
+                document.getElementById('deleteForm' + idCruce).submit();
             }
         });
-      }
+    }
+    
 
         function calcularSaldoCruce() {
             // Obtener los valores de los campos

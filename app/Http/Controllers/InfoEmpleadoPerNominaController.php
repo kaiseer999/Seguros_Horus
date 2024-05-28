@@ -13,7 +13,7 @@ class InfoEmpleadoPerNominaController extends Controller
      */
     public function index()
     {
-        //
+        return view('Nomina.Empleado.CRUD');
     }
 
     /**

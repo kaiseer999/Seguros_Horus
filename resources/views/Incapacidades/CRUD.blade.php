@@ -173,12 +173,12 @@ $user = auth()->user();
                                     </div>
                                     
                                     
-                                    <form id="deleteForm" action="{{ url('/incapacidades/'.$inc->idIncapacidades) }}" method="post">
-                                    @csrf
-                                    {{ method_field('DELETE') }}
-                                    <button type="button" class="btn btn-link"  title="Borrar" onclick="confirmDelete()">
-                                        <i class="fa-solid fa-trash fa-lg" title="Borrar"></i>
-                                    </button>
+                                    <form id="deleteForm{{ $inc->idIncapacidades }}" action="{{ url('/incapacidades/'.$inc->idIncapacidades) }}" method="post">
+                                        @csrf
+                                        {{ method_field('DELETE') }}
+                                        <button type="button" class="btn btn-link" title="Borrar" onclick="confirmDelete({{ $inc->idIncapacidades }})">
+                                            <i class="fa-solid fa-trash fa-lg" title="Borrar incapacidad de {{ $inc->empleado->nombreEmpleado }}"></i>
+                                        </button>
                                     </form>
 
                                     @endif
@@ -285,7 +285,10 @@ $user = auth()->user();
 
 
 
-    function confirmDelete() {
+
+
+
+    function confirmDelete(idIncapacidades) {
         Swal.fire({
             title: '¿Estás seguro?',
             text: '¡No podrás revertir esto!',
@@ -297,7 +300,7 @@ $user = auth()->user();
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                document.getElementById('deleteForm').submit();
+                document.getElementById('deleteForm' + idIncapacidades).submit();
             }
         });
       }
