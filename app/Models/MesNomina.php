@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class MesNomina extends Model
 {
     use HasFactory;
+
+    protected $primaryKey= 'idMesNomina';
+
+    protected $fillable=[
+        'idMesNomina',
+        'nombreMesNomina'
+    ];
+
 }

@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class TipoDeduccionesNomina extends Model
 {
     use HasFactory;
+
+    protected $primaryKey='idTipoDeduccionesNomina';
+
+    protected $fillable=[
+        'idTipoDeduccionesNomina',
+        'nombreTipoDeduccion'
+    ];
 }
