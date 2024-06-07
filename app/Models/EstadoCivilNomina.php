@@ -16,5 +16,8 @@ class EstadoCivilNomina extends Model
         'nombreEstadoCivil'
     ];
 
+    public function InfoEmpleadoPerNomina(){
+        return $this->hasMany('App\Models\InfoEmpleadoPerNomina', 'id_EmpleadoNomina');
+    }
 
 }

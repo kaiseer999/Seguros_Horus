@@ -9,12 +9,52 @@ class infoEmpleadoPerNomina extends Model
 {
     use HasFactory;
 
-    protected $primaryKey='idEmpleadoAdmNom';
+    protected $primaryKey='id_EmpleadoNomina';
 
     protected $fillable=[
+        'id_EmpleadoNomina',
         'idEmpleadoAdmNom',
-        'fechaIngresoEmpleadoNom',
-        'idCargoNomima',
-        'idEstadoNomina',
+        'cedulaEmpleadoNom',
+        'nombreEmpleadoNom',
+        'direccionEmpleadoNom',
+        'sexoEmpleadoNom',
+        'idEstadoCivilNomina',
+        'fechaNacEmpleadoNom',
+        'emailEmpleadoNom',
+        'telefonoEmpleadoNom'
+
     ];
+
+    public function infoEmpleadoAdminNomina(){
+        return $this->belongsTo('App\Models\infoEmpleadoAdminNomina', 'idEmpleadoAdmNom');
+    }
+
+    
+    public function EstadoCivilNomina(){
+        return $this->belongsTo('App\Models\EstadoCivilNomina', 'idEstadoCivilNomina');
+    }
+    protected $casts = [
+        'nombreEmpleadoNom' => 'string',
+        'direccionEmpleadoNom' => 'string',
+        'sexoEmpleadoNom' => 'string',
+    ];
+    
+    public function setnombreEmpleadoNomAttribute($value)
+    {
+        $this->attributes['nombreEmpleadoNom'] = strtoupper($value);
+    }
+
+    public function setdireccionEmpleadoNomAttribute($value)
+    {
+        $this->attributes['direccionEmpleadoNom'] = strtoupper($value);
+    }
+
+    public function setsexoEmpleadoNomAttribute($value)
+    {
+        $this->attributes['sexoEmpleadoNom'] = strtoupper($value);
+    }
+    
+
+
+
 }

@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TipoDeduccionesNomina;
-use App\Http\Requests\StoreTipoDeduccionesNominaRequest;
-use App\Http\Requests\UpdateTipoDeduccionesNominaRequest;
+use App\Models\estados_EmpleadoNomina;
+use App\Http\Requests\Storeestados_EmpleadoNominaRequest;
+use App\Http\Requests\Updateestados_EmpleadoNominaRequest;
 
-class TipoDeduccionesNominaController extends Controller
+class EstadosEmpleadoNominaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        
+        //
     }
 
     /**
@@ -27,7 +27,7 @@ class TipoDeduccionesNominaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTipoDeduccionesNominaRequest $request)
+    public function store(Storeestados_EmpleadoNominaRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class TipoDeduccionesNominaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(TipoDeduccionesNomina $tipoDeduccionesNomina)
+    public function show(estados_EmpleadoNomina $estados_EmpleadoNomina)
     {
         //
     }
@@ -43,7 +43,7 @@ class TipoDeduccionesNominaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(TipoDeduccionesNomina $tipoDeduccionesNomina)
+    public function edit(estados_EmpleadoNomina $estados_EmpleadoNomina)
     {
         //
     }
@@ -51,7 +51,7 @@ class TipoDeduccionesNominaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTipoDeduccionesNominaRequest $request, TipoDeduccionesNomina $tipoDeduccionesNomina)
+    public function update(Updateestados_EmpleadoNominaRequest $request, estados_EmpleadoNomina $estados_EmpleadoNomina)
     {
         //
     }
@@ -59,7 +59,7 @@ class TipoDeduccionesNominaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TipoDeduccionesNomina $tipoDeduccionesNomina)
+    public function destroy(estados_EmpleadoNomina $estados_EmpleadoNomina)
     {
         //
     }

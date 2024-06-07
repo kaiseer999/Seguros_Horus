@@ -15,4 +15,19 @@ class CargoNomina extends Model
         'idCargoNomina',
         'nombreCargo'
     ];
+
+    public function InfoEmpleadoAdminNomina(){
+        return $this->hasMany('App\Models\InfoEmpleadoAdminNomina', 'idCargoNomina');
+    }
+
+    protected $casts = [
+        'nombreCargo' => 'string',
+    ];
+
+    public function setnombreCargoNomAttribute($value)
+    {
+        $this->attributes['nombreCargo'] = strtoupper($value);
+    }
+    
+
 }

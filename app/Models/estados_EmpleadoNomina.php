@@ -5,19 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EstadosNomina extends Model
+class estados_EmpleadoNomina extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'idEstadoNomina';
+    protected $primaryKey = 'idEstadoEmpleadoNomina';
 
     protected $fillable=[
-        'idEstadoNomina',
-        'nombreEstadoNomina'
+        'idEstadoEmpleadoNomina',
+        'nombreEstadoEmpleado'
     ];
 
     public function InfoEmpleadoAdminNomina(){
         return $this->hasMany('App\Models\InfoEmpleadoAdminNomina', 'idCargoNomina');
     }
-    
 }

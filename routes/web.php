@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\CargoNominaController;
 use App\Models\Empleado;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\EmpleadorController;
 use App\Http\Controllers\IncapacidadeController;
 use App\Http\Controllers\CruceController;
 use App\Http\Controllers\InfoEmpleadoPerNominaController;
+use App\Models\CargoNomina;
 use Barryvdh\DomPDF\PDF;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +29,9 @@ Route::resource('/empleadores', EmpleadorController::class)->middleware(['auth']
 Route::resource('/incapacidades', IncapacidadeController::class)->middleware(['auth']);
 Route::resource('/cruces', CruceController::class)->middleware(['auth']);
 Route::resource('/empleadosnomina', InfoEmpleadoPerNominaController::class)->middleware(['auth']);
+Route::resource('/cargos', CargoNominaController::class)->middleware(['auth']);
+
+
 
 
 

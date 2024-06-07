@@ -78,7 +78,7 @@
                               Nomina
                             </button>
                             <ul class="dropdown-menu dropdown-menu-warning">
-                              <li><a class="dropdown-item" href="#">Ver Empleados Horus</a></li>
+                              <li><a class="dropdown-item" href="{{url('/empleadosnomina')}}">Ver Empleados Horus</a></li>
                               <li><a class="dropdown-item" href="#">Ver Nomimas</a></li>
                               <li><a class="dropdown-item" href="#">Ver Primas</a></li>
                               <li><a class="dropdown-item" href="#">Ver Vacaciones</a></li>

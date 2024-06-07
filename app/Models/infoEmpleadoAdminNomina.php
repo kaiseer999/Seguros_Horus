@@ -9,19 +9,24 @@ class infoEmpleadoAdminNomina extends Model
 {
     use HasFactory;
 
-    protected $primaryKey='id_EmpleadoNomina';
+    protected $primaryKey='idEmpleadoAdmNom';
 
     protected $fillable=[
-        'id_EmpleadoNomina',
-        'id_EmpleadoAdmNom',
-        'cedulaEmpleadoNom',
-        'nombreEmpleadoNom',
-        'direccionEmpleadoNom',
-        'sexoEmpleadoNom',
-        'idEstadoCivilNomina',
-        'fechaNacEmpleadoNom',
-        'emailEmpleadoNom',
-        'telefonoEmpleadoNom'
-
+        'idEmpleadoAdmNom',
+        'fechaIngresoEmpleadoNom',
+        'idCargoNomima',
+        'idEstadoNomina',
     ];
+
+    public function InfoEmpleadoPerNomina(){
+        return $this->hasMany('App\Models\InfoEmpleadoPerNomina', 'id_EmpleadoNomina');
+    }
+
+    public function CargoNomina(){
+        return $this->belongsTo('App\Models\CargoNomina', 'idCargoNomina');
+    }
+
+    public function EstadoNomina(){
+        return $this->belongsTo('App\Models\EstadosNomina', 'idEstadoNomina');
+    }
 }
