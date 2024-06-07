@@ -152,8 +152,8 @@
                            
                             <div class="mb-3 row">
                                 <div class="col">
-                                    <label for="emailInput" class="form-label">Fecha de ingreso a la empresa</label>
-                                    <input type="date" class="form-control" id="emailInput">
+                                    <label for="fechaIngresoEmpleadoNom" class="form-label">Fecha de ingreso a la empresa</label>
+                                    <input type="date" class="form-control" name="fechaIngresoEmpleadoNom" id="fechaIngresoEmpleadoNom">
                                 </div>
                             
                                 <div class="col">
@@ -214,17 +214,35 @@
                                 </div>   
                                 
                                 <div class="col">
-                                    <label for="sexoSelect" class="form-label">Sexo</label>
-                                    <select class="form-select" id="sexoSelect" name="sexo" aria-label="Default select example">
+                                    <label for="EstadoCivilSelect" class="form-label">Estado civil</label>
+                                    <select class="form-select" id="EstadoCivilSelect" name="sexo" aria-label="Default select example">
                                         <option selected>Selecciona...</option>
-                                        @foreach($cargos as $cargo)
-                                        <option value="{{$cargo->idCargoNomina}}">{{$cargo->nombreCargo}}</option>
+                                        @foreach($estadociviles as $estadocivil)
+                                        <option value="{{$estadocivil->idEstadoCivilNomina}}">{{$estadocivil->nombreEstadoCivil}}</option>
                                         @endforeach
                                     </select>
                                 </div>  
 
+                                <div class="col">
+                                    <label for="emailInput" class="form-label">Fecha de nacimiento</label>
+                                    <input type="date" class="form-control" id="emailInput">
+                                </div>
+
                             </div>
                             
+                            <div class="mb-3 row">
+                                <div class="col">
+                                    <label for="emailInput" class="form-label">Correo electronico</label>
+                                    <input type="email" class="form-control" id="emailInput">
+                                </div>
+
+                                <div class="col">
+                                    <label for="emailInput" class="form-label">Numero de telefono</label>
+                                    <input type="text" class="form-control" id="emailInput">
+                                </div>
+
+                            </div>
+
                             
                             
 
