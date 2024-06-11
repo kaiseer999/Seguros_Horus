@@ -16,6 +16,7 @@ class infoEmpleadoAdminNomina extends Model
         'fechaIngresoEmpleadoNom',
         'idCargoNomina',
         'idEstadoEmpleadoNomina',
+        'SalarioEmpleadoNom'
     ];
 
     public function infoEmpleadoPerNomina(){

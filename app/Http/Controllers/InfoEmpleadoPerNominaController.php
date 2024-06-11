@@ -41,7 +41,9 @@ class InfoEmpleadoPerNominaController extends Controller
                 'infoEmpleadoAdminNomina.CargoNomina', 
                 'infoEmpleadoAdminNomina.estados_EmpleadoNomina',
                 'EstadoCivilNomina'
-            ])->get();
+            ])->whereHas('infoEmpleadoAdminNomina', function ($query) {
+                $query->where('idEstadoEmpleadoNomina', 1); // Filtrar por estado 1
+            })->get();
             
 
 
@@ -77,6 +79,7 @@ class InfoEmpleadoPerNominaController extends Controller
                 'fechaIngresoEmpleadoNom' => 'required|date',
                 'idCargoNomina' => 'required|exists:cargo_nominas,idCargoNomina',
                 'idEstadoEmpleadoNomina' => 'required|exists:estados_empleado_nominas,idEstadoEmpleadoNomina',
+                'SalarioEmpleadoNom'=>'required|numeric',
                 'cedulaEmpleadoNom' => 'required|string',
                 'nombreEmpleadoNom' => 'required|string',
                 'direccionEmpleadoNom' => 'required|string',
@@ -95,6 +98,8 @@ class InfoEmpleadoPerNominaController extends Controller
                 'fechaIngresoEmpleadoNom' => $request->fechaIngresoEmpleadoNom,
                 'idCargoNomina' => $request->idCargoNomina,
                 'idEstadoEmpleadoNomina' => $request->idEstadoEmpleadoNomina,
+                'SalarioEmpleadoNom'=>$request->SalarioEmpleadoNom,
+
             ]);
 
             // Guardar los datos en la tabla infoEmpleadoPerNomina
@@ -170,50 +175,59 @@ class InfoEmpleadoPerNominaController extends Controller
     public function update(UpdateinfoEmpleadoPerNominaRequest $request, $id_EmpleadoNomina)
     {
         try {
-            // Validar los datos del formulario
-            $request->validate([
-                'fechaIngresoEmpleadoNom' => 'required|date',
-                'idCargoNomina' => 'required|exists:cargo_nominas,idCargoNomina',
-                'idEstadoEmpleadoNomina' => 'required|exists:estados_empleado_nominas,idEstadoEmpleadoNomina',
-                'cedulaEmpleadoNom' => 'required|string',
-                'nombreEmpleadoNom' => 'required|string',
-                'direccionEmpleadoNom' => 'required|string',
-                'sexoEmpleadoNom' => 'required|string',
-                'idEstadoCivilNomina' => 'required|exists:estado_civil_nominas,idEstadoCivilNomina',
-                'fechaNacEmpleadoNom' => 'required|date',
-                'emailEmpleadoNom' => 'required|string',
-                'telefonoEmpleadoNom' => 'required|string'
-            ]);
 
-            // Iniciar una transacción
-            DB::beginTransaction();
+                // Validar los datos del formulario
+        $request->validate([
+            'idEmpleadoAdmNom' => 'required|exists:info_empleado_admin_nominas,idEmpleadoAdmNom',
+            'fechaIngresoEmpleadoNom' => 'required|date',
+            'idCargoNomina' => 'required|exists:cargo_nominas,idCargoNomina',
+            'idEstadoEmpleadoNomina' => 'required|exists:estados_empleado_nominas,idEstadoEmpleadoNomina',
+            'SalarioEmpleadoNom'=>'required|numeric',
+            'cedulaEmpleadoNom' => 'required|string',
+            'nombreEmpleadoNom' => 'required|string',
+            'direccionEmpleadoNom' => 'required|string',
+            'sexoEmpleadoNom' => 'required|string',
+            'idEstadoCivilNomina' => 'required|exists:estado_civil_nominas,idEstadoCivilNomina',
+            'fechaNacEmpleadoNom' => 'required|date',
+            'emailEmpleadoNom' => 'required|string',
+            'telefonoEmpleadoNom' => 'required|string'
+        ]);
 
-            // Actualizar los datos en la tabla infoEmpleadoAdminNomina
-            $infoadminempleado = InfoEmpleadoAdminNomina::findOrFail($id_EmpleadoNomina);
-            $infoadminempleado->update([
-                'fechaIngresoEmpleadoNom' => $request->fechaIngresoEmpleadoNom,
-                'idCargoNomina' => $request->idCargoNomina,
-                'idEstadoEmpleadoNomina' => $request->idEstadoEmpleadoNomina,
-            ]);
+        // Iniciar una transacción
+        DB::beginTransaction();
 
-            // Actualizar los datos en la tabla infoEmpleadoPerNomina
-            $infoempleadopersonal = infoEmpleadoPerNomina::where('idEmpleadoAdmNom', $id_EmpleadoNomina)->firstOrFail();
-            $infoempleadopersonal->update([
-                'cedulaEmpleadoNom' => $request->cedulaEmpleadoNom,
-                'nombreEmpleadoNom' => $request->nombreEmpleadoNom,
-                'direccionEmpleadoNom' => $request->direccionEmpleadoNom,
-                'sexoEmpleadoNom' => $request->sexoEmpleadoNom,
-                'idEstadoCivilNomina' => $request->idEstadoCivilNomina,
-                'fechaNacEmpleadoNom' => $request->fechaNacEmpleadoNom,
-                'emailEmpleadoNom' => $request->emailEmpleadoNom,
-                'telefonoEmpleadoNom' => $request->telefonoEmpleadoNom
-            ]);
+        // Actualizar los datos en la tabla infoEmpleadoAdminNomina
+        $infoadminempleado = InfoEmpleadoAdminNomina::findOrFail($request->idEmpleadoAdmNom);
+        $infoadminempleado->update([
+            'fechaIngresoEmpleadoNom' => $request->fechaIngresoEmpleadoNom,
+            'idCargoNomina' => $request->idCargoNomina,
+            'idEstadoEmpleadoNomina' => $request->idEstadoEmpleadoNomina,
+            'SalarioEmpleadoNom'=>$request->SalarioEmpleadoNom,
 
-            // Confirmar la transacción
-            DB::commit();
+        ]);
 
-            Session::flash('success', '¡Empleado actualizado exitosamente!');
-            return back();
+        // Actualizar los datos en la tabla infoEmpleadoPerNomina
+        $infoempleadopersonal = infoEmpleadoPerNomina::where('idEmpleadoAdmNom', $request->idEmpleadoAdmNom)->firstOrFail();
+        $infoempleadopersonal->update([
+            'cedulaEmpleadoNom' => $request->cedulaEmpleadoNom,
+            'nombreEmpleadoNom' => $request->nombreEmpleadoNom,
+            'direccionEmpleadoNom' => $request->direccionEmpleadoNom,
+            'sexoEmpleadoNom' => $request->sexoEmpleadoNom,
+            'idEstadoCivilNomina' => $request->idEstadoCivilNomina,
+            'fechaNacEmpleadoNom' => $request->fechaNacEmpleadoNom,
+            'emailEmpleadoNom' => $request->emailEmpleadoNom,
+            'telefonoEmpleadoNom' => $request->telefonoEmpleadoNom
+        ]);
+
+        // Confirmar la transacción
+        DB::commit();
+
+        Session::flash('success', '¡Empleado actualizado exitosamente!');
+        return back();
+            
+
+
+
 
         } catch (QueryException $e) {
             // Manejo de excepciones específicas de la base de datos
@@ -244,14 +258,40 @@ class InfoEmpleadoPerNominaController extends Controller
             Session::flash('error', '¡Ups! Algo salió mal al actualizar el empleado: ' . $ex->getMessage());
             return back()->withInput();
         }
+
+        
+
     }
         
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(infoEmpleadoPerNomina $infoEmpleadoPerNomina)
+    public function destroy($id_EmpleadoNomina)
     {
-        //
+        try {
+            // Encuentra el registro de infoEmpleadoPerNomina correspondiente
+            $infoEmpleadoPerNomina = infoEmpleadoPerNomina::findOrFail($id_EmpleadoNomina);
+            
+            // Cambiar el estado del empleado a inactivo (por ejemplo, supongamos que el estado inactivo tiene el id 2)
+            $infoEmpleadoPerNomina->infoEmpleadoAdminNomina->idEstadoEmpleadoNomina = 2;
+            
+            // Guardar los cambios
+            $infoEmpleadoPerNomina->infoEmpleadoAdminNomina->save();
+            
+            // Retornar una respuesta adecuada
+            Session::flash('success', '¡Empleado desactivado exitosamente!');
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            // Si no se encuentra el modelo, manejar la excepción
+            Session::flash('error', 'Empleado no encontrado.');
+        } catch (\Exception $e) {
+            // Para cualquier otra excepción, manejarla de manera general
+            Session::flash('error', 'Hubo un problema al desactivar el empleado.');
+        }
+    
+        return back();
     }
+    
+
+
 }

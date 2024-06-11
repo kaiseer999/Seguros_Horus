@@ -7,6 +7,8 @@ use App\Http\Controllers\EmpleadorController;
 use App\Http\Controllers\IncapacidadeController;
 use App\Http\Controllers\CruceController;
 use App\Http\Controllers\InfoEmpleadoPerNominaController;
+use App\Http\Controllers\PagoEmpleadoController;
+
 use App\Models\CargoNomina;
 use Barryvdh\DomPDF\PDF;
 use Dompdf\Dompdf;
@@ -31,7 +33,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/cruces/pdf', [CruceController::class, 'pdf'])->name('cruces.pdf');
+Route::get('/cruces/pdf', [CruceController::class, 'pdf'])->name('cruces.pdf')->middleware(['auth']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth']);
 
@@ -41,6 +43,9 @@ Route::resource('/incapacidades', IncapacidadeController::class)->middleware(['a
 Route::resource('/cruces', CruceController::class)->middleware(['auth']);
 Route::resource('/empleadosnomina', InfoEmpleadoPerNominaController::class)->middleware(['auth']);
 Route::resource('/cargos', CargoNominaController::class)->middleware(['auth']);
+Route::resource('/nomina', PagoEmpleadoController::class)->middleware(['auth']);
+
+
 
 
 
