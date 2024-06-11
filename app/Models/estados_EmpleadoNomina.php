@@ -17,6 +17,7 @@ class estados_EmpleadoNomina extends Model
     ];
 
     public function InfoEmpleadoAdminNomina(){
-        return $this->hasMany('App\Models\InfoEmpleadoAdminNomina', 'idCargoNomina');
+        return $this->hasMany('App\Models\InfoEmpleadoAdminNomina', 'idEstadoEmpleadoNomina');
     }
+    
 }

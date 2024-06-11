@@ -12,9 +12,20 @@ use Barryvdh\DomPDF\PDF;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Route;
 
+
 Route::get('/', function () {
     return view('auth.login');
 });
+
+/*Route::get('/emailtest', function () {
+    //return (new notificacion("cristian"))->render();
+
+
+    Mail::to('josemiguelgarciapabuena@gmail.com')->send(new Notificacion('Jose', 'Prueba email laravel'));
+
+
+});
+*/
 
 //RECORDAR PONER EL / EN LAS RUTAS SOLAS COMO EN EL DOMPDF, NO OLVIDES PORFAVOR.
 

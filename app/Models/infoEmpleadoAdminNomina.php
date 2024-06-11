@@ -14,19 +14,20 @@ class infoEmpleadoAdminNomina extends Model
     protected $fillable=[
         'idEmpleadoAdmNom',
         'fechaIngresoEmpleadoNom',
-        'idCargoNomima',
-        'idEstadoNomina',
+        'idCargoNomina',
+        'idEstadoEmpleadoNomina',
     ];
 
-    public function InfoEmpleadoPerNomina(){
-        return $this->hasMany('App\Models\InfoEmpleadoPerNomina', 'id_EmpleadoNomina');
+    public function infoEmpleadoPerNomina(){
+        return $this->hasMany('App\Models\infoEmpleadoPerNomina', 'idEmpleadoAdmNom', 'idEmpleadoAdmNom');
     }
 
     public function CargoNomina(){
         return $this->belongsTo('App\Models\CargoNomina', 'idCargoNomina');
     }
 
-    public function EstadoNomina(){
-        return $this->belongsTo('App\Models\EstadosNomina', 'idEstadoNomina');
+    public function estados_EmpleadoNomina(){
+        return $this->belongsTo('App\Models\estados_EmpleadoNomina', 'idEstadoEmpleadoNomina');
     }
+    
 }

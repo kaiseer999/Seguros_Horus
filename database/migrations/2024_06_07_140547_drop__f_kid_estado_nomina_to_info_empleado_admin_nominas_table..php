@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('info_empleado_admin_nominas', function (Blueprint $table) {
-            $table->dropIndex('info_empleado_admin_nominas_idestadonomina_foreign');
+           // $table->dropIndex('info_empleado_admin_nominas_idestadonomina_foreign');
         });
     }
 

@@ -26,7 +26,7 @@ class infoEmpleadoPerNomina extends Model
     ];
 
     public function infoEmpleadoAdminNomina(){
-        return $this->belongsTo('App\Models\infoEmpleadoAdminNomina', 'idEmpleadoAdmNom');
+        return $this->belongsTo('App\Models\infoEmpleadoAdminNomina', 'idEmpleadoAdmNom', 'idEmpleadoAdmNom');
     }
 
     

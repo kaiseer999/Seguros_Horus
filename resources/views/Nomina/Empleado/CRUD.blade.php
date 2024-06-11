@@ -124,6 +124,7 @@
         </div>
     </div>
 
+    <!-- Tabla de Empleados -->
     <div class="col-lg-8 col-md-6 mb-4">
         <div class="card">
             <div class="card-header">
@@ -131,7 +132,7 @@
             </div>
             <div class="card-body">
                 <!-- Contenido del otro módulo aquí -->
-                <table class="table">
+                <table class="table table-striped table-hover">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#crearEmpleadoNominaModal">
                       Crear empleado
@@ -146,6 +147,8 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body">
+                            <form action="{{url('/empleadosnomina')}}" id="FrmEmpleadoNomina" method="POST" >
+                                @csrf
                             <div class="section-title">
                                 <h5>Información de Ingreso</h5>
                             </div>
@@ -168,11 +171,11 @@
                                 
 
                                 <div class="col">
-                                    <label for="cargoSelect" class="form-label">Selecciona el estado</label>
-                                    <select class="form-select" id="cargoSelect" name="idCargoNomina" aria-label="Default select example">
+                                    <label for="estadoESelect" class="form-label">Selecciona el estado</label>
+                                    <select class="form-select" id="estadoESelect" name="idEstadoEmpleadoNomina" aria-label="Default select example">
                                         <option selected>Selecciona...</option>
-                                        @foreach($cargos as $cargo)
-                                        <option value="{{$cargo->idCargoNomina}}">{{$cargo->nombreCargo}}</option>
+                                        @foreach($estadosempl as $estadoempl)
+                                        <option value="{{$estadoempl->idEstadoEmpleadoNomina}}">{{$estadoempl->nombreEstadoEmpleado}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -185,13 +188,13 @@
                             <div class="mb-3 row">
 
                                 <div class="col">
-                                    <label for="emailInput" class="form-label">Numero de identificacion</label>
-                                    <input type="text" class="form-control" id="emailInput">
+                                    <label for="cedulaEmpleadoNom" class="form-label">Numero de identificacion</label>
+                                    <input type="text" class="form-control" id="cedulaEmpleadoNom" name="cedulaEmpleadoNom">
                                 </div>
 
                                 <div class="col">
-                                    <label for="emailInput" class="form-label">Nombre completo</label>
-                                    <input type="text" class="form-control" id="emailInput">
+                                    <label for="nombreEmpleadoNom" class="form-label">Nombre completo</label>
+                                    <input type="text" class="form-control" id="nombreEmpleadoNom" name="nombreEmpleadoNom">
                                 </div>
                                 
                             </div>
@@ -199,13 +202,13 @@
                             <div class="mb-3 row">
 
                                 <div class="col">
-                                    <label for="emailInput" class="form-label">Direccion</label>
-                                    <input type="text" class="form-control" id="emailInput">
+                                    <label for="direccionEmpleadoNom" class="form-label">Direccion</label>
+                                    <input type="text" class="form-control" id="direccionEmpleadoNom" name="direccionEmpleadoNom">
                                 </div>
 
                                 <div class="col">
                                     <label for="sexoSelect" class="form-label">Sexo</label>
-                                    <select class="form-select" id="sexoSelect" name="sexo" aria-label="Default select example">
+                                    <select class="form-select" id="sexoSelect" name="sexoEmpleadoNom" aria-label="Default select example">
                                         <option selected>Selecciona...</option>
                                         <option value="M">Masculino</option>
                                         <option value="F">Femenino</option>
@@ -215,7 +218,7 @@
                                 
                                 <div class="col">
                                     <label for="EstadoCivilSelect" class="form-label">Estado civil</label>
-                                    <select class="form-select" id="EstadoCivilSelect" name="sexo" aria-label="Default select example">
+                                    <select class="form-select" id="EstadoCivilSelect" name="idEstadoCivilNomina" aria-label="Default select example">
                                         <option selected>Selecciona...</option>
                                         @foreach($estadociviles as $estadocivil)
                                         <option value="{{$estadocivil->idEstadoCivilNomina}}">{{$estadocivil->nombreEstadoCivil}}</option>
@@ -224,51 +227,145 @@
                                 </div>  
 
                                 <div class="col">
-                                    <label for="emailInput" class="form-label">Fecha de nacimiento</label>
-                                    <input type="date" class="form-control" id="emailInput">
+                                    <label for="fechaNacEmpleadoNom" class="form-label">Fecha de nacimiento</label>
+                                    <input type="date" class="form-control" id="fechaNacEmpleadoNom" name="fechaNacEmpleadoNom">
                                 </div>
 
                             </div>
                             
                             <div class="mb-3 row">
                                 <div class="col">
-                                    <label for="emailInput" class="form-label">Correo electronico</label>
-                                    <input type="email" class="form-control" id="emailInput">
+                                    <label for="emailEmpleadoNom" class="form-label">Correo electronico</label>
+                                    <input type="email" class="form-control" id="emailEmpleadoNom" name="emailEmpleadoNom">
                                 </div>
 
                                 <div class="col">
-                                    <label for="emailInput" class="form-label">Numero de telefono</label>
-                                    <input type="text" class="form-control" id="emailInput">
+                                    <label for="telefonoEmpleadoNom" class="form-label">Numero de telefono</label>
+                                    <input type="text" class="form-control" id="telefonoEmpleadoNom" name="telefonoEmpleadoNom">
                                 </div>
 
                             </div>
 
+                            </form>
                             
-                            
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-success" onclick="submitForm('FrmEmpleadoNomina')">Guardar empleado</button>
+                              </div>
 
 
-
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
                           </div>
                         </div>
                       </div>
                     </div>
+
+                    <script>
+                        function submitForm(formId){
+                          document.getElementById(formId).submit();
+                        }
+                
+                    </script>
                     <thead>
                         <tr>
-                            <th>test</th>
-                            <th>test</th>
-                            <th>tests</th>
+                            <th>{{'#'}}</th>
+                            <th>Empleado</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
+                   
                     <tbody>
+                        @foreach($empleados as $empleado)
                         <tr>
-                            <td>xd</td>
-                            <td>xd</td>
-                            <td>xd</td>
+                            <td>{{$empleado->id_EmpleadoNomina}}</td>
+                            <td>{{$empleado->nombreEmpleadoNom}}</td>
+                            <td>
+                                <div class="d-inline-flex">
+
+                                    <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#editarEmpleadoNomModal{{$empleado->id_EmpleadoNomina}}">
+                                        <i class="fa-solid fa-pen-to-square fa-lg" title="Editar"></i>
+                                    </button>
+                                
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="editarEmpleadoNomModal{{$empleado->id_EmpleadoNomina}}" tabindex="-1" aria-labelledby="editarEmpleadoNomModalLabel{{$empleado->id_EmpleadoNomina}}" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editarEmpleadoNomModalLabel{{$empleado->id_EmpleadoNomina}}">Editar {{$empleado->nombreEmpleadoNom}}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="{{ route('cargos.update', $cargo->idCargoNomina) }}" method="post">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="mb-3">
+                                                            <label for="nombreCargo" class="form-label">Nombre de cargo</label>
+                                                            <input type="text" class="form-control" id="nombreCargo" name="nombreCargo" value="{{$cargo->nombreCargo}}" required>
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                                                            <button type="submit" class="btn btn-success">Guardar cambios</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                        
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <form id="deleteForm{{$empleado->id_EmpleadoNomina}}" action="{{ url('/cargos/'.$empleado->id_EmpleadoNomina) }}" method="post">
+                                        @csrf
+                                        {{ method_field('DELETE') }}
+                                        <button type="button" class="btn btn-link" title="Borrar" onclick="confirmDelete({{ $cargo->idCargoNomina }})">
+                                            <i class="fa-solid fa-trash fa-lg" title="Borrar {{ $cargo->nombreCargo }}"></i>
+                                        </button>
+                                    </form>
+
+
+
+                                    <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#detallesEmpleadoNomModal{{$empleado->id_EmpleadoNomina}}" title="Detalles">
+                                        <i class="fas fa-info-circle fa-lg" title="Detalles"></i>
+                                    </button>
+  
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="detallesEmpleadoNomModal{{$empleado->id_EmpleadoNomina}}" tabindex="-1" aria-labelledby="detallesEmpleadoNomModalLabel{{$empleado->id_EmpleadoNomina}}" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="detallesEmpleadoNomModalLabel{{$empleado->id_EmpleadoNomina}}">Detalles de {{$empleado->nombreEmpleadoNom}}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                <p>Fecha de ingreso: {{$empleado->infoEmpleadoAdminNomina->fechaIngresoEmpleadoNom}}</p>
+                                                <p>Cargo: {{$empleado->infoEmpleadoAdminNomina->CargoNomina->nombreCargo}}</p>
+                                                <p>Estado: {{$empleado->infoEmpleadoAdminNomina->estados_EmpleadoNomina->nombreEstadoEmpleado}}</p>
+                                                <p>Numero de identificacion: {{$empleado->cedulaEmpleadoNom}}</p>
+                                                <p>Direccion: {{$empleado->direccionEmpleadoNom}}</p>
+                                                <p>Estado civil: {{$empleado->EstadoCivilNomina->nombreEstadoCivil}}</p>
+                                                <p>Fecha de nacimiento: {{$empleado->fechaNacEmpleadoNom}}</p>
+                                                <p>Correo electronico: {{$empleado->emailEmpleadoNom}} </p>
+                                                <p>Telefono: {{$empleado->telefonoEmpleadoNom}}</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                                                    <!-- Puedes agregar más botones de acción si lo necesitas -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+
+
+                                </div>
+                            </td>
                         </tr>
+                        @endforeach
                     </tbody>
 
                 </table>
