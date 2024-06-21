@@ -88,27 +88,20 @@
 
                                         </div>
                                     
-                                        <div class="mb-3 row">
-                                            @foreach ($tiposdedu as $tipodedu)
-                                            <div class="col-md-12">
-                                                <label for="deducciones[{{$tipodedu->idTipoDeduccionesNomina}}][valor]" class="form-label">{{$tipodedu->nombreTipoDeduccion}}</label>
-                                                <input type="Text" name="deducciones[{{$tipodedu->idTipoDeduccionesNomina}}][id]" value="{{$tipodedu->idTipoDeduccionesNomina}}">
-                                                <input type="text" class="form-control input-sueldo-neto" name="deducciones[{{$tipodedu->idTipoDeduccionesNomina}}][valor]" id="deduccion_{{$tipodedu->idTipoDeduccionesNomina}}" required>
-                                            </div>
-                                            @endforeach
-                                        </div>
+                                        
                                         
                                     
                                         <h1>Deducciones</h1>
                                         <div class="mb-3 row">
-                                           {{-- Asegúrate de que cada input tenga la clase "input-sueldo-neto" --}}
                                             @foreach ($tiposdedu as $tipodedu)
                                             <div class="col-md-12">
-                                                <label for="idDeduccion_EmpNom{{$tipodedu->idTipoDeduccionesNomina}}" class="form-label">{{$tipodedu->nombreTipoDeduccion}}</label>
-                                                <input type="text"  class="form-control input-sueldo-neto" name="idDeduccion_EmpNom{{$tipodedu->idTipoDeduccionesNomina}}" id="idDeduccion_EmpNom{{$tipodedu->idTipoDeduccionesNomina}}" required>
+                                                <label for="deducciones[{{$tipodedu->idTipoDeduccionesNomina}}][valor]" class="form-label">{{$tipodedu->nombreTipoDeduccion}}</label>
+                                                <input type="hidden" name="deducciones[{{$tipodedu->idTipoDeduccionesNomina}}][idDeduccion_EmpNom]" value="{{$tipodedu->idTipoDeduccionesNomina}}">
+                                                <input type="text" class="form-control input-sueldo-neto" name="deducciones[{{$tipodedu->idTipoDeduccionesNomina}}][ValorDescuento]" id="deduccion_{{$tipodedu->idTipoDeduccionesNomina}}" required>
                                             </div>
                                             @endforeach
                                         </div>
+                                        
                                     
                                         
                                         <h1>Sueldo a pagar</h1>
@@ -326,23 +319,35 @@ function calcularSueldoBruto() {
 
 
 
-document.getElementById('idDeduccion_EmpNom4').addEventListener('input', calcularSueldoNeto);
-
-function calcularSueldoNeto(){
-    var salarioBruto = parseFloat(document.getElementById('SueldoBruto').value) || 0;
+document.addEventListener('DOMContentLoaded', function() {
+    // Escuchar cambios en todos los campos input-sueldo-neto
     var inputsNeto = document.querySelectorAll('.input-sueldo-neto');
+    inputsNeto.forEach(function(input) {
+        input.addEventListener('input', function() {
+            calcularSueldoNeto();
+        });
+    });
+
+    // Calcular el sueldo neto inicialmente al cargar la página
+    calcularSueldoNeto();
+});
+
+function calcularSueldoNeto() {
+    var salarioBruto = parseFloat(document.getElementById('SueldoBruto').value) || 0;
     var deducciones = 0;
 
+    // Iterar sobre todos los campos de deducción
+    var inputsNeto = document.querySelectorAll('.input-sueldo-neto');
     inputsNeto.forEach(function(input) {
         deducciones += parseFloat(input.value) || 0;
     });
 
     var salarioNomina = salarioBruto - deducciones;
 
+    // Actualizar el campo de Sueldo Neto con el resultado
     var sueldoNeto = document.getElementById('SueldoNeto');
+    sueldoNeto.value = salarioNomina.toFixed(0); // Puedes ajustar la precisión según tus necesidades
 
-    sueldoNeto.value = salarioNomina.toFixed(0);
-    
     console.log('Sueldo Neto: ' + salarioNomina);
 }
 
