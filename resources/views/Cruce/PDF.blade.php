@@ -1,118 +1,216 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <title>Title</title>
-        <!-- Required meta tags -->
-        <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documento Soporte de Pago Nómina Electrónica</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-size: 10px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header, .section, .footer {
+            border: 1px solid #333;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 20px;
+        }
+        .header img {
+            width: 100px;
+            height: auto;
+        }
+        .header-text {
+            text-align: left;
+            padding-left: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 14px;
+        }
+        .header h2 {
+            margin: 0;
+            font-size: 12px;
+            color: #007bff;
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .col-half {
+            width: 48%;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+        .table th, .table td {
+            border: 1px solid #333;
+            padding: 5px;
+            text-align: left;
+            font-size: 10px;
+        }
+        .table th {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+        }
+        .table tbody tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+        .footer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-col {
+            width: 48%;
+        }
+        .total {
+            font-weight: bold;
+            text-align: right;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-right {
+            text-align: right;
+        }
+        .highlight {
+            background-color: #ffeb3b;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
 
-        <!-- Bootstrap CSS v5.2.1 -->
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-            crossorigin="anonymous"
-        />
+<div class="container">
+    <div class="header">
+        <div class="header-text">
+            <h1>EMPRESA CAPACITACION S.A.</h1>
+            <h2>Nit 100313819</h2>
+            <p>Documento soporte de pago nómina electrónica</p>
+        </div>
+    </div>
 
-        
-       
-        <style>
-            body {
-                font-family: 'Arial', sans-serif; /* Agrega el tipo de letra Poppins a todo el documento */
-                
-            }
-            /* Estilos adicionales aquí */
-        </style>
-    </head>
-    <body>
-       
-
-        <div class="container">
-
-            <h1>Pago de incapacidad</h1>
-            <div>
-                {{$fechaActual}}
+    <div class="section">
+        <div class="row">
+            <div class="col-half">
+                <strong>Período de Pago:</strong> 10/12/2022 - 30/01/2022<br>
+                <strong>Comprobante Número:</strong> 1
             </div>
-
-            <br>
-            <div>
-                <p>Asunto: Pago incapacidad</p>
-            </div>
-            <div>
-                <p>NOM EMPRESA con NIT hace pago de la incapacidad derivada de un accidente laboral del señor NOM INC con NUMEMP, liquidada y expedida por EPSARL</p>
-                <p>Fecha de incapacidad</p>
-                <ul>
-                    
-                        <p>Fecha inicial al Fecha Final (dias inc) valorEPS</p>
-                        <p>Total a pagar-----------valorCruce</p>
-
-                    
-                </ul>
-            </div>
-            <div>
-                <p><b>Nota</b> : Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo similique est cumque. Quisquam aperiam dolor vel sapiente totam error esse molestias, provident deleniti, enim facere at porro mollitia inventore nostrum?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat molestias voluptatum exercitationem earum rem, vitae dolor quidem at. Harum officiis repellat dignissimos tenetur! Ab, esse. Odit eius nostrum cupiditate fugiat.
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium assumenda, voluptatum est quibusdam minus nihil fugit delectus! Alias tempora, rerum ullam suscipit aspernatur eligendi deserunt. Nulla maxime corrupti perferendis rerum?
-                </p>
+            <div class="col-half text-right">
+                <strong>Fecha Generación:</strong> 30/01/2022<br>
+                <strong>Fecha Emisión:</strong> 30/01/2022
             </div>
         </div>
+        <div class="row">
+            <div class="col-half">
+                <strong>Nombre:</strong> SUSANA NES SHOPENHAWEN<br>
+                <strong>Cargo:</strong> AUXILIAR DE EDICIÓN<br>
+                <strong>Salario básico:</strong> 1,550,000
+            </div>
+            <div class="col-half text-right">
+                <strong>Identificación:</strong> 32,582,545
+            </div>
+        </div>
+    </div>
 
-            <div class="container">
-                <div class="col">
-                    <div class="row-md-6">
-                        <p>______________________</p>
-                        <p>Luisa Fernanda Osorio</p>
-                        <p>Representante Legal</p>
-                    </div>
-                    <div class="row-md-6">
-                        <p>______________________</p>
-                        <p>Nom empleado</p>
-                        <p>Empleado</p>
-                    </div>
+    <div class="section">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th colspan="3">INGRESOS</th>
+                    <th colspan="3">DEDUCCIONES</th>
+                </tr>
+                <tr>
+                    <th>Concepto</th>
+                    <th>Cantidad</th>
+                    <th>Valor</th>
+                    <th>Concepto</th>
+                    <th>Cantidad</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Sueldo</td>
+                    <td>28.00</td>
+                    <td>$1,446,666.00</td>
+                    <td>Fondo de Salud</td>
+                    <td>1.00</td>
+                    <td>$62,000.00</td>
+                </tr>
+                <tr>
+                    <td>Auxilio de Transporte</td>
+                    <td>28.00</td>
+                    <td>$1,509,351.00</td>
+                    <td>Fondo de Pensión</td>
+                    <td>1.00</td>
+                    <td>$62,000.00</td>
+                </tr>
+                <tr>
+                    <td>Incapacidad Empleada</td>
+                    <td>28.00</td>
+                    <td>$103,333.00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="total">Total Ingresos</td>
+                    <td>$1,859,350.00</td>
+                    <td colspan="2" class="total">Total Deducciones</td>
+                    <td>$124,000.00</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section highlight">
+        <div class="text-center">
+            <strong>NETO A PAGAR</strong>
+            <h1>$1,535,360.00</h1>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-row">
+            <div class="footer-col">
+                <strong>Medio de pago:</strong> Transferencia Bancaria<br>
+                <strong>Fecha de pago:</strong> 31/01/2022
+            </div>
+            <div class="footer-col text-right">
+                <div class="qr-code">
+                    <!-- Placeholder for QR code -->
+                    <img src="qr_code_placeholder.png" alt="QR Code">
                 </div>
             </div>
         </div>
-        
+    </div>
+</div>
 
-
-
-
-    </body>
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!-- Bootstrap JavaScript Libraries -->
-        <script
-            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-            crossorigin="anonymous"
-        ></script>
-
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-            crossorigin="anonymous"
-        ></script>
-    </body>
+</body>
 </html>
-
-

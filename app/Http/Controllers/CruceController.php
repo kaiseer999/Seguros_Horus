@@ -31,7 +31,7 @@ class CruceController extends Controller
      */
     public function index()
     {
-        $ids_a_filtrar = [4,3,1]; 
+        $ids_a_filtrar = [6,3,1]; 
 
         // Consultar las incapacidades excluyendo aquellas que tengan los estados que deseas filtrar
         $incapacidades = Incapacidade::with('empleado','empleadors')
@@ -54,8 +54,8 @@ class CruceController extends Controller
 
         $fechaActual = Carbon::now()->format('d  F  Y');
         $cruces= Cruce::all();
-        $pdf = Pdf::loadView('Cruce.PDF', compact('cruces', 'fechaActual'));
-        return $pdf->stream();
+        $pdf = Pdf::loadView('Nomina.Pago.PDF');
+        return $pdf->stream('recibo_nomina.pdf');
     
     }
 

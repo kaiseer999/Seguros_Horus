@@ -28,7 +28,7 @@ class IncapacidadeController extends Controller
         try{
 
         //Filtro para incapacidades que no se mostraran en este caso son las pagadas, ya que se mostraran en cruce
-        $ids_a_filtrar = []; 
+        $ids_a_filtrar = [6]; 
 
         // Consultar las incapacidades excluyendo aquellas que tengan los estados que deseas filtrar
         $incapacidades = Incapacidade::with('empleado','empleadors')

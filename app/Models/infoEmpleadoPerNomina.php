@@ -28,7 +28,9 @@ class infoEmpleadoPerNomina extends Model
     public function infoEmpleadoAdminNomina(){
         return $this->belongsTo('App\Models\infoEmpleadoAdminNomina', 'idEmpleadoAdmNom', 'idEmpleadoAdmNom');
     }
-
+    public function deduccionesempleado(){
+        return $this->hasMany('App\Models\deduccionesempleado', 'idDeduccion_EmpNom');
+    }
     
     public function EstadoCivilNomina(){
         return $this->belongsTo('App\Models\EstadoCivilNomina', 'idEstadoCivilNomina');

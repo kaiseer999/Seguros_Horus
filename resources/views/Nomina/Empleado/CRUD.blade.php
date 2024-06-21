@@ -351,6 +351,8 @@
 
 
 
+                                    <a href="{{ route('empleadosnomina.show', ['empleadosnomina' => $empleado->id_EmpleadoNomina]) }}">Ver detalles</a>
+
 
 
 

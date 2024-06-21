@@ -20,6 +20,8 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use App\Mail\notificacion;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 
 use Throwable;
 
@@ -156,9 +158,56 @@ class InfoEmpleadoPerNominaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(infoEmpleadoPerNomina $infoEmpleadoPerNomina)
+    public function show($id_EmpleadoNomina)
     {
-        //
+        try {
+            // Cargar información necesaria para la vista de detalle
+            $cargos = CargoNomina::all();
+            $tdeducciones = TipoDeduccionesNomina::all();
+            $estadociviles = EstadoCivilNomina::all();
+            $estadosempl = estados_EmpleadoNomina::all();
+            
+            // Intentar encontrar el empleado por su ID
+            $empleado = infoEmpleadoPerNomina::with([
+                'infoEmpleadoAdminNomina', 
+                'infoEmpleadoAdminNomina.CargoNomina', 
+                'infoEmpleadoAdminNomina.estados_EmpleadoNomina',
+                'EstadoCivilNomina'
+            ])->findOrFail($id_EmpleadoNomina); // Encuentra el empleado por su ID
+            
+            return view('Nomina.Empleado.show', compact('empleado', 'cargos', 'tdeducciones', 'estadociviles', 'estadosempl'));
+            
+        } catch (ModelNotFoundException $e) {
+            Session::flash('error', 'El empleado no pudo ser encontrado en la base de datos: ' . $e->getMessage());
+            return back();
+        } catch (Exception $e) {
+            Session::flash('error', '¡Ups! Algo salió mal al cargar los detalles del empleado: ' . $e->getMessage());
+            return back();
+        }
+    }
+
+
+    public function obtenerDatosEmpleado($id_EmpleadoNomina)
+    {
+        try {
+            // Obtener el empleado por su ID con sus relaciones cargadas
+            $empleado = infoEmpleadoPerNomina::with([
+                'infoEmpleadoAdminNomina'
+            ])->findOrFail($id_EmpleadoNomina);
+
+            // Preparar los datos que deseas devolver en la respuesta JSON
+            $datosEmpleado = [
+                'SalarioEmpleadoNom' => $empleado->infoEmpleadoAdminNomina->SalarioEmpleadoNom, // salarioEmpleado
+            ];
+
+            // Devolver los datos como respuesta JSON
+            return response()->json($datosEmpleado);
+
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'Empleado no encontrado en la base de datos'], 404);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Error al cargar los detalles del empleado'], 500);
+        }
     }
 
     /**

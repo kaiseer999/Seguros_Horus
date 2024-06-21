@@ -15,4 +15,14 @@ class TipoDeduccionesNomina extends Model
         'idTipoDeduccionesNomina',
         'nombreTipoDeduccion'
     ];
+
+
+    public function deduccionesempleado(){
+        return $this->hasMany('App\Models\deduccionesempleado', 'idTipoDeduccionesNomina');
+    }
+    
+
+    
+    
+
 }

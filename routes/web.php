@@ -19,15 +19,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-/*Route::get('/emailtest', function () {
-    //return (new notificacion("cristian"))->render();
 
-
-    Mail::to('josemiguelgarciapabuena@gmail.com')->send(new Notificacion('Jose', 'Prueba email laravel'));
-
-
-});
-*/
 
 //RECORDAR PONER EL / EN LAS RUTAS SOLAS COMO EN EL DOMPDF, NO OLVIDES PORFAVOR.
 
@@ -44,6 +36,8 @@ Route::resource('/cruces', CruceController::class)->middleware(['auth']);
 Route::resource('/empleadosnomina', InfoEmpleadoPerNominaController::class)->middleware(['auth']);
 Route::resource('/cargos', CargoNominaController::class)->middleware(['auth']);
 Route::resource('/nomina', PagoEmpleadoController::class)->middleware(['auth']);
+Route::get('/ruta/para/obtener/datos/empleado/{id_EmpleadoNomina}', [InfoEmpleadoPerNominaController::class, 'obtenerDatosEmpleado'])->middleware(['auth']);
+
 
 
 

@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pago__empleados', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('pago_empleados', function (Blueprint $table) {
+            $table->integer('DiasLaborados')->nullable()->after('id_PagoEmpleado');
         });
     }
 
@@ -22,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pago__empleados');
+        Schema::table('pago_empleados', function (Blueprint $table) {
+            //
+        });
     }
 };

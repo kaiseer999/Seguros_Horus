@@ -20,7 +20,8 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    
+
+
     <!--SweetAlert2-->
     <script  src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -39,7 +40,7 @@
     <!--Select2 JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
-
+    <!--AJAX -->
 
 </head>
 
@@ -146,18 +147,7 @@
     @yield('js')
 
     <script>
-        setInterval(function() {
-            var currentTime = new Date();
-            var hours = currentTime.getHours();
-            var minutes = currentTime.getMinutes();
-            var seconds = currentTime.getSeconds();
-            
-            hours = (hours < 10 ? "0" : "") + hours;
-            minutes = (minutes < 10 ? "0" : "") + minutes;
-            seconds = (seconds < 10 ? "0" : "") + seconds;
-            
-            document.getElementById('current-time').innerHTML = hours + ":" + minutes + ":" + seconds;
-        }, 1000);
+       
     </script>
     
 </body>
