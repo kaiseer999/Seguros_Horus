@@ -54,7 +54,7 @@ class CruceController extends Controller
 
         $fechaActual = Carbon::now()->format('d  F  Y');
         $cruces= Cruce::all();
-        $pdf = Pdf::loadView('Nomina.Pago.PDF');
+        $pdf = Pdf::loadView('Cruce.PDF');
         return $pdf->stream('recibo_nomina.pdf');
     
     }

@@ -300,6 +300,12 @@ $user = auth()->user();
             $('#EmpleadorSelect').select2();
         });
 
+
+        
+
+
+        
+
         document.getElementById('FrmIncapacidad').addEventListener('submit', function(event) {
             calcularDias();
         

@@ -16,7 +16,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Alexandria:600" rel="stylesheet">
+    <link href="https://fonts.bunny.net/css?family=Alexandria:400" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -40,7 +40,6 @@
     <!--Select2 JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
-    <!--AJAX -->
 
 </head>
 
@@ -81,8 +80,8 @@
                             <ul class="dropdown-menu dropdown-menu-warning">
                               <li><a class="dropdown-item" href="{{url('/empleadosnomina')}}">Ver Empleados Horus</a></li>
                               <li><a class="dropdown-item" href="{{url('/nomina')}}">Ver Nomimas</a></li>
-                              <li><a class="dropdown-item" href="#">Ver Primas</a></li>
-                              <li><a class="dropdown-item" href="#">Ver Vacaciones</a></li>
+                              <li><a class="dropdown-item" href="{{url('/prima')}}">Ver Primas</a></li>
+                              <li><a class="dropdown-item" href="{{url('/vacaciones')}}">Ver Vacaciones</a></li>
                               <li><a class="dropdown-item" href="#">Ver Cesantias</a></li>
 
                             </ul>

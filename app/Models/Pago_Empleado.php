@@ -11,6 +11,9 @@ class Pago_Empleado extends Model
 
     protected $primaryKey= 'id_PagoEmpleado';
 
+    protected $table = 'pago_empleados'; // Nombre correcto de la tabla
+
+
     protected $fillable = [
         'id_PagoEmpleado',
         'DiasLaborados',

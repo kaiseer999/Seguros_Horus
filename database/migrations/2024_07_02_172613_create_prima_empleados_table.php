@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('pago_empleado_deducciones', function (Blueprint $table) {
-            $table->double('ValorDescuento')->nullable()->after('idDeduccion_EmpNom');
+        Schema::create('prima_empleados', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -21,8 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('pago_empleado_deducciones', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('prima_empleados');
     }
 };

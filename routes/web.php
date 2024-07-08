@@ -8,8 +8,12 @@ use App\Http\Controllers\IncapacidadeController;
 use App\Http\Controllers\CruceController;
 use App\Http\Controllers\InfoEmpleadoPerNominaController;
 use App\Http\Controllers\PagoEmpleadoController;
+use App\Http\Controllers\PrimaEmpleadoController;
+use App\Http\Controllers\VacacionesEmpleadoController;
+
 
 use App\Models\CargoNomina;
+use App\Models\PrimaEmpleado;
 use Barryvdh\DomPDF\PDF;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Route;
@@ -37,7 +41,9 @@ Route::resource('/empleadosnomina', InfoEmpleadoPerNominaController::class)->mid
 Route::resource('/cargos', CargoNominaController::class)->middleware(['auth']);
 Route::resource('/nomina', PagoEmpleadoController::class)->middleware(['auth']);
 Route::get('/ruta/para/obtener/datos/empleado/{id_EmpleadoNomina}', [InfoEmpleadoPerNominaController::class, 'obtenerDatosEmpleado'])->middleware(['auth']);
-
+Route::resource('/prima', PrimaEmpleadoController::class)->middleware(['auth']);
+Route::get('/datosPrima/{id_EmpleadoNomina}/{anio}/{periodo}', [PrimaEmpleadoController::class, 'obtenerPrimaSemestral'])->middleware(['auth']);
+Route::resource('/vacaciones', VacacionesEmpleadoController::class)->middleware(['auth']);
 
 
 

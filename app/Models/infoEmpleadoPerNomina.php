@@ -35,6 +35,12 @@ class infoEmpleadoPerNomina extends Model
     public function EstadoCivilNomina(){
         return $this->belongsTo('App\Models\EstadoCivilNomina', 'idEstadoCivilNomina');
     }
+    
+    public function pagoEmpleado()
+    {
+        return $this->hasMany('App\Models\Pago_Empleado', 'id_EmpleadoNomina', 'id_EmpleadoNomina');
+    }
+
     protected $casts = [
         'nombreEmpleadoNom' => 'string',
         'direccionEmpleadoNom' => 'string',

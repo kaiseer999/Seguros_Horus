@@ -348,7 +348,6 @@ function calcularSueldoNeto() {
     var sueldoNeto = document.getElementById('SueldoNeto');
     sueldoNeto.value = salarioNomina.toFixed(0); // Puedes ajustar la precisión según tus necesidades
 
-    console.log('Sueldo Neto: ' + salarioNomina);
 }
 
 

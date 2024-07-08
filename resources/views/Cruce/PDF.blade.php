@@ -121,7 +121,7 @@
                 <strong>Período de Pago:</strong> 10/12/2022 - 30/01/2022<br>
                 <strong>Comprobante Número:</strong> 1
             </div>
-            <div class="col-half text-right">
+            <div class="col-half ">
                 <strong>Fecha Generación:</strong> 30/01/2022<br>
                 <strong>Fecha Emisión:</strong> 30/01/2022
             </div>
@@ -129,11 +129,12 @@
         <div class="row">
             <div class="col-half">
                 <strong>Nombre:</strong> SUSANA NES SHOPENHAWEN<br>
+                <strong>Identificación:</strong> 32,582,545 <br>
                 <strong>Cargo:</strong> AUXILIAR DE EDICIÓN<br>
-                <strong>Salario básico:</strong> 1,550,000
             </div>
-            <div class="col-half text-right">
-                <strong>Identificación:</strong> 32,582,545
+            <div class="col-half">
+                <strong>Salario básico:</strong> 1,550,000
+
             </div>
         </div>
     </div>
