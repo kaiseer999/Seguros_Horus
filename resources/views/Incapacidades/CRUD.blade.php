@@ -26,6 +26,7 @@ $user = auth()->user();
                         <th>EPS / ARL</th>
                         <th>Dias de incapacidad</th>
                         <th>Estado</th>
+                        <th>Hora y fecha de creacion</th>
 
                         <th>Acciones</th>
                     </thead>
@@ -39,6 +40,7 @@ $user = auth()->user();
                             <td>{{$inc->EPS_ARL}}</td>
                             <td>{{$inc->diasInc}}</td>
                             <td>{{ $inc->estado->NombreEstado }}</td>
+                            <td>{{$inc->created_at}}</td>
 
 
                            

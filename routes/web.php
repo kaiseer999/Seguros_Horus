@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\CargoNominaController;
+
 use App\Models\Empleado;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\EmpleadorController;
@@ -10,10 +10,14 @@ use App\Http\Controllers\InfoEmpleadoPerNominaController;
 use App\Http\Controllers\PagoEmpleadoController;
 use App\Http\Controllers\PrimaEmpleadoController;
 use App\Http\Controllers\VacacionesEmpleadoController;
-
-
+use App\Http\Controllers\ClienteFacturaController;
+use App\Http\Controllers\AsesorComercialController;
+use App\Http\Controllers\CargoNominaController;
+use App\Http\Controllers\FacturaController;
+use App\Http\Controllers\ProductoFacturaController;
 use App\Models\CargoNomina;
 use App\Models\PrimaEmpleado;
+use App\Models\ProductoFactura;
 use Barryvdh\DomPDF\PDF;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +48,13 @@ Route::get('/ruta/para/obtener/datos/empleado/{id_EmpleadoNomina}', [InfoEmplead
 Route::resource('/prima', PrimaEmpleadoController::class)->middleware(['auth']);
 Route::get('/datosPrima/{id_EmpleadoNomina}/{anio}/{periodo}', [PrimaEmpleadoController::class, 'obtenerPrimaSemestral'])->middleware(['auth']);
 Route::resource('/vacaciones', VacacionesEmpleadoController::class)->middleware(['auth']);
+Route::resource('/clientes', ClienteFacturaController::class)->middleware(['auth']);
+Route::resource('/asesores', AsesorComercialController::class)->middleware(['auth']);
+Route::resource('/facturas', FacturaController::class)->middleware(['auth']);
+Route::get('/producto/create', [ProductoFacturaController::class, 'create'])->middleware(['auth']);
+Route::post('/producto/create', [ProductoFacturaController::class, 'store'])->middleware(['auth']);
+
+
 
 
 

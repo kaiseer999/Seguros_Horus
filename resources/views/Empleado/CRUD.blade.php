@@ -85,6 +85,8 @@ $user = auth()->user();
                             <th>Numero de documento</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
+                            <th>Fecha y hora de creacion</th>
+
                             @role('admin')
                             <th>Acciones</th>
                             @endrole
@@ -105,6 +107,8 @@ $user = auth()->user();
                             <td>{{$empleado->idEmpleado}}</td>
                             <td>{{$empleado->nombreEmpleado}}</td>
                             <td>{{$empleado->apellidoEmpleado}}</td>
+                            <td>{{$empleado->created_at}}</td>
+
                             @role('admin')
                             <td>
 

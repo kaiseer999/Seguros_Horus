@@ -86,6 +86,19 @@
 
                             </ul>
                         </li>
+
+                        <li class="nav-item dropdown">
+                            <button class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                Facturación
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-warning">
+                              <li><a class="dropdown-item" href="{{url('/clientes')}}">Ver Clientes</a></li>
+                              <li><a class="dropdown-item" href="{{url('/asesores')}}">Ver Asesores</a></li>
+                              <li><a class="dropdown-item" href="{{url('/facturas')}}">Ver Facturas</a></li>
+                              <li><a class="dropdown-item" href="#">Ver Vencimientos</a></li>
+
+                            </ul>
+                        </li>
                   
                     </ul>
                     @endguest
