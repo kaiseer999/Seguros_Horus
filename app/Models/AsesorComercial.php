@@ -9,6 +9,8 @@ class AsesorComercial extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'idAsesorComercial';
+
     protected $fillable = [
         'nombreAsesor',
         'apellidoAsesor',

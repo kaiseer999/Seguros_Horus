@@ -9,10 +9,16 @@ class ProductoFactura extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'codigoProducto';
+
     protected $fillable=[
+        'idCategoriaProducto',
         'nombreProducto',
-        'precioProducto'
+        'precioProducto',
+        'descripcionProducto'
     ];
+
+
 
     protected $casts=[
         'nombreProducto'=>'string'
@@ -22,6 +28,10 @@ class ProductoFactura extends Model
         $this->attributes['nombreProducto'] = strtoupper($value);
     }
 
+    public function categoriaProducto()
+    {
+        return $this->belongsTo(CategoriaProducto::class, 'idCategoriaProducto', 'idCategoriaProducto');
+    }
 
 
 

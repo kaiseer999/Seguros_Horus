@@ -16,6 +16,7 @@ use App\Http\Controllers\CargoNominaController;
 use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\ProductoFacturaController;
 use App\Models\CargoNomina;
+use App\Models\Factura;
 use App\Models\PrimaEmpleado;
 use App\Models\ProductoFactura;
 use Barryvdh\DomPDF\PDF;
@@ -53,10 +54,9 @@ Route::resource('/asesores', AsesorComercialController::class)->middleware(['aut
 Route::resource('/facturas', FacturaController::class)->middleware(['auth']);
 Route::get('/producto/create', [ProductoFacturaController::class, 'create'])->middleware(['auth']);
 Route::post('/producto/create', [ProductoFacturaController::class, 'store'])->middleware(['auth']);
-
-
-
-
+Route::get('/productoCategoria/{idCategoriaProducto}', [FacturaController::class, 'obtenerProductoCategoria'])->middleware(['auth']);
+Route::get('/obtenerDetallesProducto/{codigoProducto}', [FacturaController::class, 'obtenerDetallesProducto'])->middleware(['auth']);
+Route::get('/obtenerAsesor/{idAsesorComercial}', [ClienteFacturaController::class, 'obtenerAsesores'] )->middleware(['auth']);
 
 
 

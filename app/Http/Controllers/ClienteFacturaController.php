@@ -181,28 +181,24 @@ class ClienteFacturaController extends Controller
     }
 
 
-    // public function obtenerAsesores($idAsesorComercial){
-    //     try{
+    public function obtenerAsesores($idAsesorComercial){
+        try{
 
-    //         $asesor = AsesorComercial::findOrFail($idAsesorComercial);
+            $asesor = AsesorComercial::findOrFail($idAsesorComercial);
 
-    //         $nombresAsesores = 
-    //            [
-    //                 'id' => $asesor->idAsesorComercial,
-    //                 'nombreAsesor' => $asesor->nombreAsesor,
-    //             ];
+          
           
 
-    //         return response()->json($nombresAsesores);
+            return response()->json($asesor);
     
-    //     } catch (ModelNotFoundException $e) {
-    //         // Retornar error 404 si no se encuentra el asesor
-    //         return response()->json(['error' => 'Asesor no encontrado en la base de datos'], 404);
-    //     } catch (Exception $e) {
-    //         // Retornar error 500 para errores generales
-    //         return response()->json(['error' => 'Error al cargar los detalles del asesor'], 500);
-    //     }
-    // }
+        } catch (ModelNotFoundException $e) {
+            // Retornar error 404 si no se encuentra el asesor
+            return response()->json(['error' => 'Asesor no encontrado en la base de datos' , $e->getMessage()], 404);
+        } catch (Exception $e) {
+            // Retornar error 500 para errores generales
+            return response()->json(['error' => 'Error al cargar los detalles del asesor' , $e->getMessage()], 500);
+        }
+    }
     
 
 
