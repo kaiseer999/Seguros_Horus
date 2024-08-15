@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class FormasPago extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'idFormaPago';
+
+    protected $fillable=[
+        'nombreFormaPago'
+    ];
+
+
+    public function PagosFactura()
+    {
+        return $this->hasMany(PagosFactura::class, 'idFormaPago', 'idFormaPago');
+    }
 }

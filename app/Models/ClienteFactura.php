@@ -27,6 +27,11 @@ class ClienteFactura extends Model
         return $this->belongsTo(AsesorComercial::class, 'idAsesorComercial');
     }
 
+    public function facturas()
+    {
+        return $this->hasMany(Factura::class, 'id_cliente', 'id_cliente');
+    }
+
     protected $casts = [
         'nombreCompleto' => 'string',
         'direccionCompleto' => 'string',

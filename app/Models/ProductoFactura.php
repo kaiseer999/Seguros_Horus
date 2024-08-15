@@ -33,6 +33,11 @@ class ProductoFactura extends Model
         return $this->belongsTo(CategoriaProducto::class, 'idCategoriaProducto', 'idCategoriaProducto');
     }
 
+    public function DetalleFactura()
+    {
+        return $this->hasMany(DetalleFactura::class, 'codigoProducto', 'codigoProducto');
+    }
+
 
 
 }

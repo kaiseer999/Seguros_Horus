@@ -15,6 +15,7 @@ use App\Http\Controllers\AsesorComercialController;
 use App\Http\Controllers\CargoNominaController;
 use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\ProductoFacturaController;
+use App\Http\Controllers\VencimientosPolizasController;
 use App\Models\CargoNomina;
 use App\Models\Factura;
 use App\Models\PrimaEmpleado;
@@ -57,6 +58,9 @@ Route::post('/producto/create', [ProductoFacturaController::class, 'store'])->mi
 Route::get('/productoCategoria/{idCategoriaProducto}', [FacturaController::class, 'obtenerProductoCategoria'])->middleware(['auth']);
 Route::get('/obtenerDetallesProducto/{codigoProducto}', [FacturaController::class, 'obtenerDetallesProducto'])->middleware(['auth']);
 Route::get('/obtenerAsesor/{idAsesorComercial}', [ClienteFacturaController::class, 'obtenerAsesores'] )->middleware(['auth']);
+Route::resource('/vencimientos', VencimientosPolizasController::class)->middleware(['auth']);
+
+Route::get('/test/', [FacturaController::class, 'test'])->middleware(['auth']);
 
 
 

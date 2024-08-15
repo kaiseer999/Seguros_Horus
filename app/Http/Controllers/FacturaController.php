@@ -7,7 +7,13 @@ use App\Models\Factura;
 use App\Http\Requests\StoreFacturaRequest;
 use App\Http\Requests\UpdateFacturaRequest;
 use App\Models\ClienteFactura;
+use App\Models\DetalleFactura;
+use App\Models\FormasPago;
+use App\Models\PagosFactura;
 use App\Models\ProductoFactura;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+
 use Exception;
 
 class FacturaController extends Controller
@@ -20,7 +26,8 @@ class FacturaController extends Controller
         $catsProducto = categoriaProducto::all();
         $productos = ProductoFactura::all();
         $clientes = ClienteFactura::all();
-        return view('Facturacion.Factura.CRUD', compact('productos', 'clientes', 'catsProducto'));
+        $formas = FormasPago::all();
+        return view('Facturacion.Factura.CRUD', compact('productos', 'clientes', 'catsProducto', 'formas'));
 
     }
 
@@ -32,7 +39,8 @@ class FacturaController extends Controller
         $catsProducto = categoriaProducto::all();
         $productos = ProductoFactura::all();
         $clientes = ClienteFactura::all();
-        return view('Facturacion.Factura.CreateFactura', compact('productos', 'clientes', 'catsProducto'));
+        $formas = FormasPago::all();
+        return view('Facturacion.Factura.CreateFactura', compact('productos', 'clientes', 'catsProducto', 'formas'));
     }
 
     /**
@@ -40,8 +48,72 @@ class FacturaController extends Controller
      */
     public function store(StoreFacturaRequest $request)
     {
-        //
+        try {
+            $request->validate([
+                'fecha_Pago' => 'required|date',
+                'fecha_Vencimiento' => 'required|date',
+                'codigoProducto' => 'required|exists:producto_facturas,codigoProducto',
+                'id_cliente' => 'required|exists:clientes_facturas,id_cliente',
+                'FormaPago' => 'required|exists:formas_pagos,idFormaPago',
+                'precioProducto' => 'required|numeric',
+                'Observacion' => 'required|string',
+            ]);
+        
+            DB::beginTransaction(); // Inicia la transacción
+        
+            $factura = Factura::create([
+                'id_cliente' => $request->id_cliente,
+                'fecha_pago' => $request->fecha_Pago,
+                'fecha_Vencimiento' => $request->fecha_Vencimiento,
+                'valorOriginal' => $request->precioProducto,
+                'valorFinal'=> $request->precioProducto
+            ]);
+        
+            $detalle = DetalleFactura::create([
+                'idFactura' => $factura->idFactura,
+                'codigoProducto' => $request->codigoProducto,
+                'precioPagarProducto' => $request->precioProducto,
+                'cantidadProducto' => 1,
+                'Observaciones' => $request->Observacion,
+                'totalFactura' => $request->precioProducto          
+            ]);
+
+            $pago = PagosFactura::create([
+                'idFactura' => $factura->idFactura,
+                'idFormaPago'=>$request->FormaPago,
+                'valorPagado'=>$request->precioProducto
+            ]);
+        
+            DB::commit(); // Confirma la transacción
+        
+            Session::flash('success', '¡La factura se creó correctamente!');
+        
+            return back();
+            
+        } catch (\Exception $e) {
+            DB::rollBack(); // Revierte la transacción en caso de error
+        
+            // Registro del error en el log
+            // Log::error('Error al crear la factura: ' . $e->getMessage());
+            
+            // Redirección con un mensaje de error
+            Session::flash('error', 'Hubo un problema al crear la factura. Por favor, inténtelo de nuevo. Error: ' . $e->getMessage());
+        
+            return back();
+        }
+        
+        
+
+
+
+
+        // return dd($request->all());
     }
+
+    public function test(){
+        return view('Facturacion.Factura.FacturaMail');
+    }
+
 
     /**
      * Display the specified resource.
