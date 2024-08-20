@@ -211,6 +211,34 @@ class InfoEmpleadoPerNominaController extends Controller
         }
     }
 
+
+
+    // ESTE METODO SE UTILIZA PARA VACACIONES, ES MAS COMPLETO
+    public function obtenerEmpleado($id_EmpleadoNomina)
+    {
+        try {
+            // Obtener el empleado por su ID con sus relaciones cargadas
+            $empleado = infoEmpleadoPerNomina::with([
+                'infoEmpleadoAdminNomina'
+            ])->findOrFail($id_EmpleadoNomina);
+
+            // Preparar los datos que deseas devolver en la respuesta JSON
+            $datosEmpleado = [
+                'nombreEmpleadoNom'=>$empleado->nombreEmpleadoNom,
+                'SalarioEmpleadoNom' => $empleado->infoEmpleadoAdminNomina->SalarioEmpleadoNom, // salarioEmpleado
+                'fechaingreso'=>$empleado->infoEmpleadoAdminNomina->fechaIngresoEmpleadoNom
+            ];
+
+            // Devolver los datos como respuesta JSON
+            return response()->json($datosEmpleado);
+
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'Empleado no encontrado en la base de datos'], 404);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Error al cargar los detalles del empleado'], 500);
+        }
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

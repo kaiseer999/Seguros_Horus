@@ -3,51 +3,34 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class Factura extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $factura;
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($factura)
     {
-        //
+        $this->factura = $factura;
     }
 
     /**
-     * Get the message envelope.
+     * Build the message.
      */
-    public function envelope(): Envelope
+    public function build()
     {
-        return new Envelope(
-            subject: 'Factura',
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
+        return $this->subject('Aviso de Vencimiento de Factura')
+                    ->html("
+                        <p>Estimado cliente,</p>
+                        <p>Le informamos que la factura N.º {$this->factura->idFactura} está próxima a vencer el {$this->factura->fecha_Vencimiento}.</p>
+                        <p>Por favor, realice el pago antes de la fecha indicada para evitar inconvenientes.</p>
+                        <p>Gracias por su atención.</p>
+                    ");
     }
 }

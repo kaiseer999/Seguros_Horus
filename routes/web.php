@@ -47,6 +47,7 @@ Route::resource('/empleadosnomina', InfoEmpleadoPerNominaController::class)->mid
 Route::resource('/cargos', CargoNominaController::class)->middleware(['auth']);
 Route::resource('/nomina', PagoEmpleadoController::class)->middleware(['auth']);
 Route::get('/ruta/para/obtener/datos/empleado/{id_EmpleadoNomina}', [InfoEmpleadoPerNominaController::class, 'obtenerDatosEmpleado'])->middleware(['auth']);
+Route::get('/datosempleado/{id_EmpleadoNomina}', [InfoEmpleadoPerNominaController::class, 'obtenerEmpleado'])->middleware(['auth']);
 Route::resource('/prima', PrimaEmpleadoController::class)->middleware(['auth']);
 Route::get('/datosPrima/{id_EmpleadoNomina}/{anio}/{periodo}', [PrimaEmpleadoController::class, 'obtenerPrimaSemestral'])->middleware(['auth']);
 Route::resource('/vacaciones', VacacionesEmpleadoController::class)->middleware(['auth']);

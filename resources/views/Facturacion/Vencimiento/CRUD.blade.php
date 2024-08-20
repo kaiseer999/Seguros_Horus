@@ -15,6 +15,7 @@
             <th scope="col">Cliente</th>
             <th scope="col">Fecha de vencimiento</th>
             <th scope="col">Estado</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>

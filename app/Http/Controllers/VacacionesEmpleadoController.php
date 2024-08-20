@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\VacacionesEmpleado;
 use App\Http\Requests\StoreVacacionesEmpleadoRequest;
 use App\Http\Requests\UpdateVacacionesEmpleadoRequest;
+use App\Models\infoEmpleadoPerNomina;
 
 class VacacionesEmpleadoController extends Controller
 {
@@ -13,7 +14,9 @@ class VacacionesEmpleadoController extends Controller
      */
     public function index()
     {
-        return view('Nomina.Vacaciones.CRUD');
+        $empleados = infoEmpleadoPerNomina::all();
+        $vacaciones = VacacionesEmpleado::all();
+        return view('Nomina.Vacaciones.CRUD', compact('vacaciones', 'empleados'));
     }
 
     /**

@@ -3,10 +3,12 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\Factura as MailFactura;
 use Illuminate\Console\Command;
 use App\Models\vencimientosPolizas;
 use App\Models\Factura;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class VencimientoCommand extends Command
 {
@@ -29,32 +31,38 @@ class VencimientoCommand extends Command
      */
     public function handle()
     {
-        // Obtener la fecha límite para vencimientos (3 meses a partir de ahora)
-        $fechaLimite = Carbon::now()->addMonths(12);
+        try {
+            $fechaLimite = \Illuminate\Support\Carbon::now()->addMonths(12);
+            $facturas = Factura::where('fecha_Vencimiento', '<=', $fechaLimite)
+                ->whereDoesntHave('vencimientos', function ($query) {
+                    $query->where('Avisos', 'like', '%Aviso%');
+                })
+                ->get();
 
-        // Obtener las facturas que están próximas a vencer
-        $facturas = Factura::where('fecha_vencimiento', '<=', $fechaLimite)
-            ->whereDoesntHave('Vencimiento', function ($query) {
-                $query->where('Avisos', 'like', '%Aviso%');
-            })
-            ->get();
+            foreach ($facturas as $factura) {
+                $vencimiento = new vencimientosPolizas();
+    
+                if ($vencimiento->Estado != 'Notificado') { // Asegúrate de verificar el estado correctamente
+                    $vencimiento->idFactura = $factura->idFactura;
+                    $vencimiento->Avisos = "Aviso: La factura N.º {$factura->idFactura} está próxima a vencer el {$factura->fecha_Vencimiento}.";
+                    $vencimiento->Estado = "Notificado";
+                    $vencimiento->save();
 
-        foreach ($facturas as $factura) {
-            $vencimiento = new vencimientosPolizas();
-            // if($vencimiento->Estado != "Notificado")
-            // {
+                    // Obtener el email del cliente usando la relación
+                    $email = $factura->clientes_facturas->email;
 
-            $vencimiento->idFactura = $factura->idFactura;
-            $vencimiento->Avisos = "Aviso: La factura N.º {$factura->idFactura} está próxima a vencer el {$factura->fecha_Vencimiento}.";
-            $vencimiento->Estado = "Notificado";
-            $vencimiento->save();
+                    // Enviar el correo de aviso
+                    Mail::to($email)
+                        ->send(new MailFactura($factura));
+                }
 
-            // Mensaje para confirmar la creación del vencimiento
-            $this->info("Vencimiento creado para la factura N.º {$factura->idFactura}.");
-
+                $this->info("Vencimiento creado y correo enviado para la factura N.º {$factura->idFactura}.");
             }
-        // }
 
-        $this->info('No hay vencimientos sin notificar');
+            $this->info('No hay vencimientos sin notificar');
+        } catch (\Exception $e) {
+            $this->error('Ocurrió un error: ' . $e->getMessage());
+        }
     }
+    
 }
