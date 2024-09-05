@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class VacacionesEmpleado extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'idVacacioneEmpleados';
+
+    protected $table = 'vacaciones_empleados';
+    protected $primaryKey = 'idVacacionesEmpleados';
 
     protected $fillable = [
         'id_EmpleadoNomina',
@@ -16,6 +18,17 @@ class VacacionesEmpleado extends Model
         'fecha_salida',
         'dias_vacaciones',
         'dias_trabajados',
-        'pago_vacaciones'
+        'dias_descanso',
+        'pago_vacaciones',
+        'Observacion'
+        
     ];
+
+    public function empleado()
+{
+    return $this->belongsTo(infoEmpleadoPerNomina::class, 'id_EmpleadoNomina');
+}
+
+
+
 }

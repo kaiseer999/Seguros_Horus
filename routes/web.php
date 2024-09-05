@@ -13,10 +13,12 @@ use App\Http\Controllers\VacacionesEmpleadoController;
 use App\Http\Controllers\ClienteFacturaController;
 use App\Http\Controllers\AsesorComercialController;
 use App\Http\Controllers\CargoNominaController;
+use App\Http\Controllers\CesantiasEmpleadoController;
 use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\ProductoFacturaController;
 use App\Http\Controllers\VencimientosPolizasController;
 use App\Models\CargoNomina;
+use App\Models\CesantiasEmpleado;
 use App\Models\Factura;
 use App\Models\PrimaEmpleado;
 use App\Models\ProductoFactura;
@@ -49,6 +51,7 @@ Route::resource('/nomina', PagoEmpleadoController::class)->middleware(['auth']);
 Route::get('/ruta/para/obtener/datos/empleado/{id_EmpleadoNomina}', [InfoEmpleadoPerNominaController::class, 'obtenerDatosEmpleado'])->middleware(['auth']);
 Route::get('/datosempleado/{id_EmpleadoNomina}', [InfoEmpleadoPerNominaController::class, 'obtenerEmpleado'])->middleware(['auth']);
 Route::resource('/prima', PrimaEmpleadoController::class)->middleware(['auth']);
+Route::resource('/cesantias', CesantiasEmpleadoController::class)->middleware(['auth']);
 Route::get('/datosPrima/{id_EmpleadoNomina}/{anio}/{periodo}', [PrimaEmpleadoController::class, 'obtenerPrimaSemestral'])->middleware(['auth']);
 Route::resource('/vacaciones', VacacionesEmpleadoController::class)->middleware(['auth']);
 Route::resource('/clientes', ClienteFacturaController::class)->middleware(['auth']);
@@ -60,7 +63,7 @@ Route::get('/productoCategoria/{idCategoriaProducto}', [FacturaController::class
 Route::get('/obtenerDetallesProducto/{codigoProducto}', [FacturaController::class, 'obtenerDetallesProducto'])->middleware(['auth']);
 Route::get('/obtenerAsesor/{idAsesorComercial}', [ClienteFacturaController::class, 'obtenerAsesores'] )->middleware(['auth']);
 Route::resource('/vencimientos', VencimientosPolizasController::class)->middleware(['auth']);
-
+Route::get('/infoEmpleadoCesantias/{idEmpleado}/{anio}', [CesantiasEmpleadoController::class, 'obtenerInfoEmpleado'])->middleware(['auth']);
 Route::get('/test/', [FacturaController::class, 'test'])->middleware(['auth']);
 
 

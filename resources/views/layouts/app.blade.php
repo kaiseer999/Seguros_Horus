@@ -82,7 +82,7 @@
                               <li><a class="dropdown-item" href="{{url('/nomina')}}">Ver Nomimas</a></li>
                               <li><a class="dropdown-item" href="{{url('/prima')}}">Ver Primas</a></li>
                               <li><a class="dropdown-item" href="{{url('/vacaciones')}}">Ver Vacaciones</a></li>
-                              <li><a class="dropdown-item" href="#">Ver Cesantias</a></li>
+                              <li><a class="dropdown-item" href="{{url('/cesantias')}}">Ver Cesantias</a></li>
 
                             </ul>
                         </li>

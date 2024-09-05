@@ -41,6 +41,10 @@ class infoEmpleadoPerNomina extends Model
         return $this->hasMany('App\Models\Pago_Empleado', 'id_EmpleadoNomina', 'id_EmpleadoNomina');
     }
 
+    public function cesantias()
+    {
+        return $this->hasMany(CesantiasEmpleado::class, 'id_EmpleadoNomina', 'id_EmpleadoNomina'); // Asegúrate de que los parámetros sean correctos
+    }
     protected $casts = [
         'nombreEmpleadoNom' => 'string',
         'direccionEmpleadoNom' => 'string',

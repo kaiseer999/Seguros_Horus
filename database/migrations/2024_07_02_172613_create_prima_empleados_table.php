@@ -12,7 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('prima_empleados', function (Blueprint $table) {
-            $table->id();
+            $table->id('idPrimaEmpleado');
+            $table->integer('AnoPago');
+            $table->foreignId('id_EmpleadoNomina')
+                  ->constrained('info_empleado_per_nominas', 'id_EmpleadoNomina');
+            $table->string('periodoPago');
+            $table->string('diasLaborados');
+            $table->decimal('AuxTransporte');
+            $table->decimal('TotalPagoPrima');
             $table->timestamps();
         });
     }
